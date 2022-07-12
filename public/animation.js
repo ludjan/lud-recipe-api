@@ -7,7 +7,7 @@ let currentSymbols = 0
 let maxSymbols = fullText.length
     
 clearInterval(id)
-id = setInterval(frame, 10)
+id = setInterval(frame, 500)
  
 function frame() {    
 
@@ -17,7 +17,7 @@ function frame() {
     
     let thisText = ""
     for (let i = 0; i < currentSymbols; i++) {
-        thisText += fullText[i]
+        thisText += fullText.at(i)
     }
 
     console.log(`Text = ${thisText}`)
