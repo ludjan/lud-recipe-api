@@ -103,7 +103,7 @@ app.get("/lakes/:lat/:lon/:rad", (req,res) => {
     })
 })
 
-// app.listen(
-//     PORT,
-//     () => console.log("it's alive on http://localhost:" + PORT)
-// )
+app.listen(
+    PORT,
+    () => console.log("it's alive on http://localhost:" + PORT)
+)
