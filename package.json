@@ -1,0 +1,19 @@
+{
+  "name": "lud-recipe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ludjan/lud-recipe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ludjan/lud-recipe/issues"
+  },
+  "homepage": "https://github.com/ludjan/lud-recipe#readme"
+}
