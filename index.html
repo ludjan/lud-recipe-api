@@ -1,90 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- page title -->
-        <title>Lud Plugin</title>
 
-        <!-- twitter bootstrap -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-        crossorigin="anonymous">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chat App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="ios.css" />
+  <script src="/socket.io/socket.io.js"></script>
+</head>
 
-        <!-- custom stylesheet -->
-        <link rel="stylesheet" href="styles.css">
-
-        <!-- some meta for responsivity -->
-        <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-
-    </head>
-
-    <body>
-        <div class="wrapper">
-
-            <section>
-                <div class="container">
-
-                    <button id="get-lake-btn">GET LAKE</button>
-                    <div id="lake-text"></div>
-                </div>
-            </section>
-
-            <section>
-                <div class="container">
-
-                    <button id="get-weather-btn">GET WEATHER</button>
-                    <div id="weather-text"></div>
-                </div>
-            </section>
-
-            <section class="grey-section">
-
-                <div class="container">
-                    <div>
-                        <button id="get-current-tab-btn" class="btn-primary">GET CURRENT TAB</button>
-                    </div>
-                    <div>
-                        <input id="input-title" type="text" placeholder="Title">
-                    </div>
-                    <div>
-                        <input id="input-url" type="text" placeholder="URL">
-                    </div>
-                    <div id="tab-help-text">
-                        Input title and url and click save to add a tab.
-                    </div>
-                    <div>
-                        <button id="save-url-btn" class="btn-primary">SAVE URL</button>
-                    </div>
-                    <div id="saved-urls">
-                    </div>
-                    <div>
-                        <button id="delete-all-urls-btn" class="btn-secondary">DELETE ALL URLS</button>
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- <section class="white-section">
-                <button id="add-btn">ADD</button>
-                <p id="text"></p>
-                <button id="save-btn">SAVE</button>
-                <button id="reset-btn">RESET</button>
-                <button id="sort-btn">SORT</button>
-
-            </section>     -->
-
-            <section>
-                <button id="start-animation-btn">START ANIMATION</button>
-                <button id="stop-animation-btn" disabled="true">STOP ANIMATION</button>
-
-                <div id ="animation-container">
-                    <div id="animation"></div>
-                </div>
-
-            </section>
+<body>
+  <main>
+    <section>
+      <p>Hey 😊</p>
+      <br />
+      <p>Hi there!</p>
+      <br />
+    </section>
+    <div>
+      <form>
+        <div>
+          <input id="message">
         </div>
+        <div>
+          <button>Send</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <script src="lakes.js"></script>
+</body>
 
-        <script src="index.js"></script>
-
-    </body>
 </html>
