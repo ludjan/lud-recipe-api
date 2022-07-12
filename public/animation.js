@@ -7,12 +7,12 @@ let currentSymbols = 0
 let maxSymbols = fullText.length
     
 clearInterval(id)
-id = setInterval(frame, 500)
+id = setInterval(frame, 1000)
  
 function frame() {    
 
     if (currentSymbols === maxSymbols) {
-        currentSymbols = 0;
+        currentSymbols = 0
     }
     
     let thisText = ""
@@ -22,4 +22,6 @@ function frame() {
 
     console.log(`Text = ${thisText}`)
     text.innerText = thisText
+
+    currentSymbols ++
 }
