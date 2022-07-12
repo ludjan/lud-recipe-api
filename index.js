@@ -9,4 +9,5 @@ app.use(express.static('public'));
 
 server.listen(PORT, function() {
   console.log('Web server running');
+  return true
 });
