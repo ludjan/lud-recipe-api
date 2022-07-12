@@ -7,7 +7,7 @@ let currentSymbols = 0
 let maxSymbols = fullText.length
     
 clearInterval(id)
-id = setInterval(frame, 1000)
+id = setInterval(frame, 500)
  
 function frame() {    
 
