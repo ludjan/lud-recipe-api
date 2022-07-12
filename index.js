@@ -8,5 +8,5 @@ var server = http.Server(app);
 app.use(express.static('public'));
 
 server.listen(PORT, function() {
-  console.log('Chat server running');
+  console.log('Web server running');
 });
