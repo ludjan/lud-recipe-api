@@ -20,7 +20,7 @@ function frame() {
         thisText += fullText.at(i)
     }
 
-    console.log(`Text = ${thisText}`)
+    // console.log(`Text = ${thisText}`)
     text.innerText = thisText
 
     currentSymbols ++
