@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ludjan/lud-recipe/issues"
   },
-  "homepage": "https://github.com/ludjan/lud-recipe#readme"
+  "homepage": "https://github.com/ludjan/lud-recipe#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
