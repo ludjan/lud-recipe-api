@@ -6,8 +6,6 @@ var app = express();
 var http = require('http');
 var server = http.Server(app);
 
-app.use(express.static('public'));
-
 const { Client } = require('pg');
 
 const client = new Client({
@@ -27,6 +25,8 @@ client.query('SELECT * FROM recipe;', (err, res) => {
   }
   client.end();
 });
+
+app.use(express.static('public'));
 
 server.listen(PORT, function() {
   console.log('Web server running');
