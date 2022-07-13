@@ -15,6 +15,8 @@ const client = new Client({
   }
 });
 
+console.log("First something!")
+
 client.connect();
 
 client.query('SELECT * FROM recipe;', (err, res) => {
