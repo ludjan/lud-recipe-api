@@ -25,6 +25,7 @@ const client = new Client({
 client.connect();
 
 client.query('SELECT * FROM recipe;', (err, res) => {
+  console.log("Something!")
   if (err) throw err;
   for (let row of res.rows) {
     console.log(JSON.stringify(row));
