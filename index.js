@@ -1,6 +1,5 @@
 var PORT = process.env.PORT || 5000;
 var express = require('express');
-const { Client } = require('pg');
 // import express from 'express'
 var app = express();
 
