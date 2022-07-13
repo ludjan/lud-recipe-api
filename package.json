@@ -1,8 +1,11 @@
 {
   "name": "lud-recipe",
   "version": "1.0.0",
-  "description": "",
+  "description": "A really cool app",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
