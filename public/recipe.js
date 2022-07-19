@@ -19,7 +19,8 @@ addRecipeForm.addEventListener("submit", () => {
   try {
     // async add, then re-render
     addRecipe(newRecipe).then(data => {
-      alert(data)
+      console.log(data)
+      alert(data.text)
       render()
     })
   } catch (err) {
