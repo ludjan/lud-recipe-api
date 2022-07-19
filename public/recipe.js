@@ -2,10 +2,8 @@ const feed = document.getElementById('recipe-feed')
 const addRecipeBtn = document.getElementById('add-recipe-btn')
 
 const url='https://lud-recipe-app.herokuapp.com/api/recipes'
-// const url='http://localhost:3000/api/recipes'
 
 addRecipeBtn.addEventListener("click", () => {
-  console.log('addRecipeBtn was clicked')
 
   // create the new entry
   const newRecipe = {
@@ -45,4 +43,5 @@ async function render() {
     .catch(err => console.log(err))
 }
 
+// render the page on first load
 render()
