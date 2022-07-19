@@ -18,9 +18,13 @@ addRecipeBtn.addEventListener("click", () => {
 })
 
 async function addRecipe(recipe) {
+
+  var data = FormData()
+  data.append("json", JSON.stringify(recipe))
+
   const response = await fetch(url, {
     method: 'POST',
-    body: JSON.stringify(recipe)
+    body: data
   })
   return response.json()
 }
