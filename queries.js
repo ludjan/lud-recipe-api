@@ -32,7 +32,7 @@ const getRecipeById = (request, response) => {
 const createRecipe = (request, response) => {
     const { name } = request.body
   
-    client.query(`INSERT INTO users (name) VALUES ('${name})`, (error, results) => {
+    client.query(`INSERT INTO users (name) VALUES ('${name}')`, (error, results) => {
         if (error) throw error
         response.status(201).send(`User added with ID: ${results.insertId}`)
     })
