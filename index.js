@@ -1,35 +1,44 @@
-var PORT = process.env.PORT || 5000;
+var port = process.env.PORT || 5000;
+
+const Joi = require('joi') // class for validation
 var express = require('express');
+const cors = require('cors')
+
+const { Client } = require('pg');
+
 var app = express();
+app.use(express.json()) // make sure express parses bodies with json
+app.use(cors()) // make sure we can access the api from the outside
+
 
 var http = require('http');
 var server = http.Server(app);
 
-const { Client } = require('pg');
-
+// connect to pg database
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
 });
-
-console.log("First something!")
-
 client.connect();
 
-client.query('SELECT * FROM recipe;', (err, res) => {
-  console.log("Something!")
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
+app.get('/api/recipes', (req, res) => {
+
+  client.query('SELECT * FROM recipe;', (err, query_res) => {
+    console.log("Something!")
+    if (err) throw err;
+    for (let row of query_res.rows) {
+      console.log(JSON.stringify(row));
+    }
+    res.status(200).send('Found it!')
+    client.end();
+  });
+})
 
 app.use(express.static('public'));
 
-server.listen(PORT, function() {
-  console.log('Web server running');
+server.listen(port, function() {
+  console.log(`Web server running on Heroku machine port ${port}`);
   return true
 });

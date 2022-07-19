@@ -1,18 +1,14 @@
-import { Client } from 'pg';
+const feed = document.getElementById('feed-recipe')
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+const url = 'https://lud-recipe-app.herokuapp.com/api/recipe'
 
-client.connect();
-
-client.query('SELECT * FROM recipe;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
+fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(recipe => {
+            console.log(recipe)
+            // const recipieItem = `<h3> ${recipe.name}</h3>`
+            // feed.insertAdjacentHTML("beforeend", teacherName)
+        })
+    })
+    .catch(err => console.log(err))
