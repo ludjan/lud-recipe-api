@@ -32,7 +32,8 @@ const getRecipeById = (request, response) => {
 const createRecipe = (request, response) => {
     const { name } = request.body
   
-    client.query(`INSERT INTO recipe (name) VALUES ('${name}')`, (error, results) => {
+    // returning * in postgres causes insert to return the row it inserted
+    client.query(`INSERT INTO recipe (name) VALUES ('${name}') RETURNING *`, (error, results) => {
         if (error) throw error
         response.status(201).send(`Recipe added: ${results}`)
     })
