@@ -3,8 +3,9 @@ const text = document.getElementById("greetings-text")
 let id = null
 
 let fullText = "Hello, there!"
-let currentSymbols = 0
+let minSymbols = 1
 let maxSymbols = fullText.length
+let currentSymbols = minSymbols
     
 clearInterval(id)
 id = setInterval(frame, 500)
@@ -12,7 +13,7 @@ id = setInterval(frame, 500)
 function frame() {    
 
     if (currentSymbols === maxSymbols) {
-        currentSymbols = 0
+        currentSymbols = minSymbols
     }
     
     let thisText = ""
