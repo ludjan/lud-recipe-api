@@ -33,21 +33,23 @@ app.get('/api/recipes', db.getRecipes)
 //   })
 // })
 
-app.get('/api/recipes/:id', (req, res) => {
-  const { id } = req.params
-  console.log(`Will try to get recipe with id ${id}`)
-  const recipe = db.query(
-    `SELECT * FROM recipe WHERE id=${id}`, (err, query_res) => {
-    if (err) {
-      console.log(err.message)
-      res.status(404).send(err)
-    }
-    else {
-      console.log(`Successfully got record ${recipe}`)
-      res.status(200).send(query_res)
-    }
-  })
-})
+app.get('/api/recipes/:id', db.getRecipeById)
+
+// app.get('/api/recipes/:id', (req, res) => {
+//   const { id } = req.params
+//   console.log(`Will try to get recipe with id ${id}`)
+//   const recipe = db.query(
+//     `SELECT * FROM recipe WHERE id=${id}`, (err, query_res) => {
+//     if (err) {
+//       console.log(err.message)
+//       res.status(404).send(err)
+//     }
+//     else {
+//       console.log(`Successfully got record ${recipe}`)
+//       res.status(200).send(query_res)
+//     }
+//   })
+// })
 
 app.post('/api/recipes', (req, res) => {
 
