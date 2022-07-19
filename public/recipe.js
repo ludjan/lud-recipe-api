@@ -16,18 +16,16 @@ addRecipeForm.addEventListener("submit", () => {
   // clear the input field
   recipeNameInput.innerText = ""
 
-  try {
-    // async add, then re-render
-    addRecipe(newRecipe).then(data => {
-      console.log(data)
-      alert(data.text)
-      render()
-    })
-  } catch (err) {
-    console.log(err)
-    console.log("feil!")
-  }
-
+  // async add, then re-render
+  addRecipe(newRecipe).then(data => {
+    if (!data.ok) {
+      const errorMsg = `Error ${data.status} - ${data.statusText}`
+      console.log(errorMessage)
+      alert(errorMessage)
+      return
+    }
+    render()
+  })
 })
 
 async function addRecipe(recipe) {
