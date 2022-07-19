@@ -1,4 +1,4 @@
-const feed = document.getElementById('feed-recipe')
+const feed = document.getElementById('recipe-feed')
 
 const url = 'https://lud-recipe-app.herokuapp.com/api/recipes'
 
