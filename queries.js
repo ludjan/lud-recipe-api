@@ -44,6 +44,8 @@ const updateRecipe = (request, response) => {
     const id = parseInt(request.params.id)
     const { name } = request.body
   
+    console.log(`Updating entry with id ${id} to name ${name}`)
+
     client.query(
       `UPDATE recipe SET name = '${name}' WHERE id = ${id} RETURNING *`,
       (error, results) => {
