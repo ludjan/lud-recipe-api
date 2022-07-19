@@ -51,7 +51,7 @@ app.post('/api/recipes', db.createRecipe)
 //   })
 // })
 
-app.put('/api/recipes', db.updateRecipe)
+app.put('/api/recipes/:id', db.updateRecipe)
 
 app.delete('api/recipes/:id', (req, res) => {
   
