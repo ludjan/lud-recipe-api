@@ -10,6 +10,7 @@ var app = express();
 app.use(express.json()) // make sure express parses bodies with json
 app.use(cors()) // make sure we can access the api from the outside
 
+app.use(express.static('public'));
 
 var http = require('http');
 var server = http.Server(app);
@@ -23,6 +24,10 @@ const client = new Client({
 });
 client.connect();
 
+app.use('/', (req, res) => {
+  console.log('This is the main page')
+})
+
 app.get('/api/recipes', (req, res) => {
 
   client.query('SELECT * FROM recipe;', (err, query_res) => {
@@ -35,8 +40,6 @@ app.get('/api/recipes', (req, res) => {
     client.end();
   });
 })
-
-app.use(express.static('public'));
 
 server.listen(port, function() {
   console.log(`Web server running on Heroku machine port ${port}`);
