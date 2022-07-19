@@ -19,6 +19,7 @@ addRecipeBtn.addEventListener("click", () => {
 
 async function addRecipe(recipe) {
 
+  // fetch the post 
   const response = await fetch(url, {
     method: 'POST',
     headers: {

@@ -4,7 +4,7 @@ const Joi = require('joi') // class for validation
 var express = require('express')
 const cors = require('cors')
 
-const { Client } = require('pg')
+const client = require('./db')
 
 var app = express() // use the express framework to handle dynamic responses to different pages
 app.use(express.json()) // make sure express parses bodies with json
@@ -21,12 +21,6 @@ var server = http.Server(app)
 // ]
 
 // connect to pg database
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-})
 client.connect()
 
 app.get('favicon.ico'), (req, res) => {
@@ -46,14 +40,14 @@ app.post('/api/recipes', (req, res) => {
   const { error } = validateRecipe(req.body)
   if (error) return res.status(400).send(`Encountered error: ${error.details[0].message}`)
 
-  const newRecipeName = req.body.name
-  console.log(`Will try to insert new recipe ${newRecipeName}`)
-  client.query(`INSERT INTO recipe (name) VALUES ('${newRecipeName}')`, (err, query_res) => {
+  const { name } = req.body
+  console.log(`Will try to insert new recipe ${name}`)
+  const newRecipe = pool.query(`INSERT INTO recipe (name) VALUES ('${name}')`, (err, query_res) => {
     if (err) {
       console.log(err.message) 
       res.status(500).send(err)
     }
-    else res.status(200).send(req.body)
+    else res.status(200).send(newRecipe)
   })
 })
 
