@@ -1,19 +1,19 @@
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 5000
 
 const Joi = require('joi') // class for validation
-var express = require('express');
+var express = require('express')
 const cors = require('cors')
 
-const { Client } = require('pg');
+const { Client } = require('pg')
 
-var app = express();
+var app = express() // use the express framework to handle dynamic responses to different pages
 app.use(express.json()) // make sure express parses bodies with json
 app.use(cors()) // make sure we can access the api from the outside
 
-var http = require('http');
-const { response, query } = require('express');
-const { hostname } = require('os');
-var server = http.Server(app);
+var http = require('http')
+const { response, query } = require('express')
+const { hostname } = require('os')
+var server = http.Server(app)
 
 // var recipes = [ 
 //   {id: 1, name: 'Korv'},
@@ -27,22 +27,28 @@ const client = new Client({
   ssl: {
     rejectUnauthorized: false
   }
-});
-client.connect();
+})
+client.connect()
 
 app.get('favicon.ico'), (req, res) => {
   res.status(200).send()
 }
 
 app.get('/api/recipes', (req, res) => {
-
-  console.log('This is the recipe page')
-
   client.query('SELECT * FROM recipe;', (err, query_res) => {
-    
     if (err) res.status(503).send(err)
     else res.status(200).send(query_res.rows)
-    client.end();
+    client.end()
+  })
+})
+
+app.post('/api/recipes', (req, res) => {
+  const newRecipeName = req.body.name
+  console.log(`Will try to insert new recipe ${newRecipeName}`)
+  client.query(`INSERT INTO recipe (name) VALUES (${newRecipeName})`, (err, query_res) => {
+    if (err) res.status(503).send(err)
+    else res.status(200).send('Created')
+    client.end()
   })
 })
 
@@ -50,6 +56,6 @@ app.get('/api/recipes', (req, res) => {
 app.use(express.static('public'));
 
 server.listen(port, function() {
-  console.log(`Web server running on ${hostname} port ${port}`);
+  console.log(`Web server running on ${hostname} port ${port}`)
   return true
-});
+})
