@@ -38,7 +38,7 @@ async function addRecipe(recipe) {
     },
     body: JSON.stringify(recipe)
   })
-  return response.json()
+  return response
 }
 
 async function render() {
