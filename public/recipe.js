@@ -48,7 +48,8 @@ async function render() {
       console.log(data)
       feed.innerHTML = `<ul>`
       data.forEach(recipe => {
-        feed.innerHTML += `<li>${recipe.name}</li>`
+        const recipeUrl = url + '/' + recipe.id
+        feed.innerHTML += `<li><a href="${recipeUrl}">${recipe.name}</a></li>`
       })
       feed.innerHTML += `</ul>`
     })
