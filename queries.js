@@ -34,7 +34,7 @@ const createRecipe = (request, response) => {
   
     client.query(`INSERT INTO recipe (name) VALUES ('${name}')`, (error, results) => {
         if (error) throw error
-        response.status(201).send(`Recipe added with ID: ${results.insertId}`)
+        response.status(201).send(`Recipe added: ${results}`)
     })
 }
   
