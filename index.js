@@ -11,7 +11,7 @@ app.use(express.json()) // make sure express parses bodies with json
 app.use(cors()) // make sure we can access the api from the outside
 
 var http = require('http');
-const { response } = require('express');
+const { response, query } = require('express');
 var server = http.Server(app);
 
 // var recipes = [ 
@@ -38,8 +38,9 @@ app.get('/api/recipes', (req, res) => {
   console.log('This is the recipe page')
 
   client.query('SELECT * FROM recipe;', (err, query_res) => {
-    console.log("Something!")
-    
+  
+    console.log(query_res)
+
     var response
     
     if (err) {
