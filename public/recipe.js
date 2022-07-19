@@ -41,6 +41,25 @@ async function addRecipe(recipe) {
   return response
 }
 
+async function deleteRecipe(recipe) {
+
+  const config = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body  
+  }
+
+  fetch(url, config)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      alert(data)
+    })
+    .then(render())
+}
+
 async function render() {
   fetch(url)
     .then(response => response.json())
