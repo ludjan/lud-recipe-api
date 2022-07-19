@@ -21,6 +21,7 @@ const getRecipes = (request, response) => {
 const getRecipeById = (request, response) => {
     
     const id = parseInt(request.params.id)
+    console.log(`Getting recipe with id ${id}`)
   
     client.query(`SELECT * FROM recipe WHERE id = ${id}`, (error, results) => {
         if (error) throw error
