@@ -45,7 +45,7 @@ app.get('/api/recipes/:id', (req, res) => {
     }
     else {
       console.log(`Successfully got record ${recipe}`)
-      res.status(200).send(recipe)
+      res.status(200).send(query_res)
     }
   })
 })
