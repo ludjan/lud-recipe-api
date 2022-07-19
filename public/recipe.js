@@ -11,8 +11,10 @@ addRecipeForm.addEventListener("submit", () => {
   const newRecipe = {
     name: recipeNameInput.value
   }
-
   console.log(newRecipe.name)
+
+  // clear the input field
+  recipeNameInput.innerText = ""
 
   // async add, then re-render
   addRecipe(newRecipe).then(data => {
