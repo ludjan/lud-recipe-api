@@ -11,7 +11,6 @@ app.use(express.json()) // make sure express parses bodies with json
 app.use(cors()) // make sure we can access the api from the outside
 
 var http = require('http')
-const { response, query } = require('express')
 const { hostname } = require('os')
 var server = http.Server(app)
 
@@ -28,18 +27,16 @@ const client = new Client({
     rejectUnauthorized: false
   }
 })
-// client.connect()
+client.connect()
 
 app.get('favicon.ico'), (req, res) => {
   res.status(200).send()
 }
 
 app.get('/api/recipes', (req, res) => {
-  client.connect()
   client.query('SELECT * FROM recipe;', (err, query_res) => {
     if (err) res.status(503).send(err)
     else res.status(200).send(query_res.rows)
-    client.end()
   })
 })
 
@@ -51,15 +48,12 @@ app.post('/api/recipes', (req, res) => {
 
   const newRecipeName = req.body.name
   console.log(`Will try to insert new recipe ${newRecipeName}`)
-
-  client.connect()
   client.query(`INSERT INTO recipe (name) VALUES ('${newRecipeName}')`, (err, query_res) => {
     if (err) {
       console.log(err.message) 
       res.status(500).send(err)
     }
     else res.status(200).send('Created')
-    client.end()
   })
 })
 
