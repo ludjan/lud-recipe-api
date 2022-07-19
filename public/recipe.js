@@ -1,5 +1,5 @@
 const feed = document.getElementById('recipe-feed')
-const addRecipeBtn = document.getElementById('add-recipe-button')
+const addRecipeBtn = document.getElementById('add-recipe-btn')
 
 const url='https://lud-recipe-app.herokuapp.com/api/recipes'
 // const url='http://localhost:3000/api/recipes'
