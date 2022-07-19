@@ -42,7 +42,7 @@ app.post('/api/recipes', (req, res) => {
 
   const { name } = req.body
   console.log(`Will try to insert new recipe ${name}`)
-  const newRecipe = pool.query(`INSERT INTO recipe (name) VALUES ('${name}')`, (err, query_res) => {
+  const newRecipe = client.query(`INSERT INTO recipe (name) VALUES ('${name}')`, (err, query_res) => {
     if (err) {
       console.log(err.message) 
       res.status(500).send(err)
