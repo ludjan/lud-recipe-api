@@ -51,7 +51,10 @@ app.post('/api/recipes', (req, res) => {
   const newRecipeName = req.body.name
   console.log(`Will try to insert new recipe ${newRecipeName}`)
   client.query(`INSERT INTO recipe (name) VALUES ('${newRecipeName}')`, (err, query_res) => {
-    if (err) res.status(503).send(err)
+    if (err) {
+      console.log(err.message) 
+      res.status(500).send(err)
+    }
     else res.status(200).send('Created')
     client.end()
   })
