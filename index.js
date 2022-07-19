@@ -29,11 +29,6 @@ const client = new Client({
 });
 client.connect();
 
-app.use('/', (req, res) => {
-  console.log('This is the main page')
-  res.status(200).send()
-})
-
 app.get('favicon.ico'), (req, res) => {
   res.status(200).send()
 }
