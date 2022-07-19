@@ -50,7 +50,7 @@ const updateRecipe = (request, response) => {
       `UPDATE recipe SET name = '${name}' WHERE id = ${id} RETURNING *`,
       (error, results) => {
         if (error) throw error
-        console.log(results.rows[0])
+        console.log(`Updated record ${results.rows[0]}`)
         response.status(200).json(results.rows[0])
         }
     )
@@ -59,9 +59,11 @@ const updateRecipe = (request, response) => {
 const deleteRecipe = (request, response) => {
     const id = parseInt(request.params.id)
   
-    client.query(`DELETE FROM recipe WHERE id = ${id}`, (error, results) => {
+    client.query(`DELETE FROM recipe WHERE id = ${id} RETURNING *`, 
+    (error, results) => {
       if (error) throw error
-      response.status(200).send(`Recipe deleted with ID: ${id}`)
+      console.log(`Deleted record: ${results.rows[0]}`)
+      response.status(200).json(results.rows[0])
     })
   }
   
