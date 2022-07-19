@@ -34,6 +34,10 @@ app.use('/', (req, res) => {
   res.status(200).send()
 })
 
+app.get('favicon.ico'), (req, res) => {
+  res.status(200).send()
+}
+
 app.get('/api/recipes', (req, res) => {
 
   console.log('This is the recipe page')
