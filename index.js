@@ -51,28 +51,30 @@ app.get('/api/recipes/:id', db.getRecipeById)
 //   })
 // })
 
-app.post('/api/recipes', (req, res) => {
+app.post('/api/recipes', db.createRecipe)
 
-  // validate and may return error on bad format
-  const { error } = validateRecipe(req.body)
-  if (error) {
-    console.log(error.details[0].message)
-    return res.status(400).send(`Encountered error: ${error.details[0].message}`)
-  }
-  const { name } = req.body
-  console.log(`Will try to insert new recipe ${name}`)
-  const newRecipe = db.query(
-    `INSERT INTO recipe (name) VALUES ('${name}')`, (err, query_res) => {
-    if (err) {
-      console.log(err.message) 
-      res.status(500).send(err)
-    }
-    else {
-      console.log(`Successfully created record ${name}`)
-      res.status(200).send(req.body)
-    }
-  })
-})
+// app.post('/api/recipes', (req, res) => {
+
+//   // validate and may return error on bad format
+//   const { error } = validateRecipe(req.body)
+//   if (error) {
+//     console.log(error.details[0].message)
+//     return res.status(400).send(`Encountered error: ${error.details[0].message}`)
+//   }
+//   const { name } = req.body
+//   console.log(`Will try to insert new recipe ${name}`)
+//   const newRecipe = db.query(
+//     `INSERT INTO recipe (name) VALUES ('${name}')`, (err, query_res) => {
+//     if (err) {
+//       console.log(err.message) 
+//       res.status(500).send(err)
+//     }
+//     else {
+//       console.log(`Successfully created record ${name}`)
+//       res.status(200).send(req.body)
+//     }
+//   })
+// })
 
 app.delete('api/recipes/:id', (req, res) => {
   
