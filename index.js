@@ -53,25 +53,27 @@ app.post('/api/recipes', db.createRecipe)
 
 app.put('/api/recipes/:id', db.updateRecipe)
 
-app.delete('api/recipes/:id', (req, res) => {
-  
-  // should check cache if id exists
+app.delete('/api/recipes/:id', db.deleteRecipe)
 
-  const { id } = req.params
-  console.log(`Will try to remove recipe with id ${id}`)
-  const result = db.query(
-    `DELETE FROM recipe WHERE id=${id}`, (err, query_res) => {
-      if (err) {
-        console.log(err.message)
-        res.status(500).send(err)
-      }
-      else {
-        console.log(`Successfully deleted record ${query_res}`)
-        res.status(200).send('Deleted')
-      }
-    }
-  )
-})
+// app.delete('api/recipes/:id', (req, res) => {
+  
+//   // should check cache if id exists
+
+//   const { id } = req.params
+//   console.log(`Will try to remove recipe with id ${id}`)
+//   const result = db.query(
+//     `DELETE FROM recipe WHERE id=${id}`, (err, query_res) => {
+//       if (err) {
+//         console.log(err.message)
+//         res.status(500).send(err)
+//       }
+//       else {
+//         console.log(`Successfully deleted record ${query_res}`)
+//         res.status(200).send('Deleted')
+//       }
+//     }
+//   )
+// })
 
 // else, serve the index page of the public dir
 app.use(express.static('public'));
