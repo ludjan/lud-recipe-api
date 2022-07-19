@@ -6,11 +6,13 @@ const url='https://lud-recipe-app.herokuapp.com/api/recipes'
 
 addRecipeBtn.addEventListener("click", () => {
   console.log('addRecipeBtn was clicked')
-  // add recipe call
 
+  // create the new entry
   const newRecipe = {
     name: "newRecipe"
   }
+  
+  // async add, then re-render
   addRecipe(newRecipe).then(data => {
     console.log(data)
     render()
@@ -19,12 +21,12 @@ addRecipeBtn.addEventListener("click", () => {
 
 async function addRecipe(recipe) {
 
-  var data = FormData()
-  data.append("json", JSON.stringify(recipe))
-
   const response = await fetch(url, {
     method: 'POST',
-    body: data
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
   })
   return response.json()
 }

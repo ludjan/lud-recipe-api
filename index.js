@@ -43,6 +43,11 @@ app.get('/api/recipes', (req, res) => {
 })
 
 app.post('/api/recipes', (req, res) => {
+
+  // validate and may return error on bad format
+  const { error } = validateRecipe(req.body)
+  if (error) return res.status(400).send(`Encountered error: ${error.details[0].message}`)
+
   const newRecipeName = req.body.name
   console.log(`Will try to insert new recipe ${newRecipeName}`)
   client.query(`INSERT INTO recipe (name) VALUES (${newRecipeName})`, (err, query_res) => {
@@ -59,3 +64,13 @@ server.listen(port, function() {
   console.log(`Web server running on ${hostname} port ${port}`)
   return true
 })
+
+function validateRecipe(recipe) {
+  const schema = Joi.object({
+    name: Joi.string()
+        .min(3)
+        .required()
+  })
+
+  return schema.validate(genre)
+}
