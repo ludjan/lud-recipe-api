@@ -32,9 +32,9 @@ const getRecipeById = (request, response) => {
 const createRecipe = (request, response) => {
     const { name } = request.body
   
-    client.query(`INSERT INTO users (name) VALUES ('${name}')`, (error, results) => {
+    client.query(`INSERT INTO recipe (name) VALUES ('${name}')`, (error, results) => {
         if (error) throw error
-        response.status(201).send(`User added with ID: ${results.insertId}`)
+        response.status(201).send(`Recipe added with ID: ${results.insertId}`)
     })
 }
   
@@ -57,7 +57,7 @@ const createRecipe = (request, response) => {
 const deleteRecipe = (request, response) => {
     const id = parseInt(request.params.id)
   
-    client.query(`DELETE FROM users WHERE id = ${id}`, (error, results) => {
+    client.query(`DELETE FROM recipe WHERE id = ${id}`, (error, results) => {
       if (error) throw error
       response.status(200).send(`Recipe deleted with ID: ${id}`)
     })
