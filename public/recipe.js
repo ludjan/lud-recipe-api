@@ -7,8 +7,6 @@ fetch(url)
     .then(data => {
         data.forEach(recipe => {
             console.log(recipe)
-            // const recipieItem = `<h3> ${recipe.name}</h3>`
-            // feed.insertAdjacentHTML("beforeend", teacherName)
         })
     })
     .catch(err => console.log(err))
