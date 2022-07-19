@@ -6,9 +6,10 @@ fetch(url)
     .then(response => response.json())
     .then(data => {
       console.log(data)
+      var recipeLi = ""
       data.forEach(recipe => {
-        const recipeRep = `<h3> ${recipe.name}</h3>`
-        feed.innerHTML += recipeRep
+        recipeLi += `<h3> ${recipe.name}</h3>`
       })
+      feed.innerHTML += recipeLi
     })
     .catch(err => console.log(err))
