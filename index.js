@@ -11,6 +11,7 @@ app.use(express.json()) // make sure express parses bodies with json
 app.use(cors()) // make sure we can access the api from the outside
 
 var http = require('http');
+const { response } = require('express');
 var server = http.Server(app);
 
 var recipes = [ 
@@ -30,6 +31,7 @@ client.connect();
 
 app.use('/', (req, res) => {
   console.log('This is the main page')
+  res.status(200).send()
 })
 
 app.get('/api/recipes', (req, res) => {
