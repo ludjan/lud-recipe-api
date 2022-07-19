@@ -24,6 +24,7 @@ addRecipeForm.addEventListener("submit", () => {
     })
   } catch (err) {
     console.log(err)
+    console.log("feil!")
   }
 
 })
