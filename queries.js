@@ -40,21 +40,19 @@ const createRecipe = (request, response) => {
     })
 }
   
-//   const updateUser = (request, response) => {
-//     const id = parseInt(request.params.id)
-//     const { name, email } = request.body
+const updateRecipe = (request, response) => {
+    const id = parseInt(request.params.id)
+    const { name } = request.body
   
-//     client.query(
-//       'UPDATE users SET name = $1, email = $2 WHERE id = $3',
-//       [name, email, id],
-//       (error, results) => {
-//         if (error) {
-//           throw error
-//         }
-//         response.status(200).send(`User modified with ID: ${id}`)
-//       }
-//     )
-//   }
+    client.query(
+      `UPDATE recipe SET name = '${name}' WHERE id = ${id} RETURNING *`,
+      (error, results) => {
+        if (error) throw error
+        console.log(results.rows[0])
+        response.status(200).json(results.rows[0])
+        }
+    )
+}
   
 const deleteRecipe = (request, response) => {
     const id = parseInt(request.params.id)
@@ -69,6 +67,6 @@ module.exports = {
     getRecipes,
     getRecipeById,
     createRecipe,
-    // updateUser,
+    updateRecipe,
     deleteRecipe
 }
