@@ -1,20 +1,25 @@
 const feed = document.getElementById('recipe-feed')
-const addRecipeBtn = document.getElementById('add-recipe-btn')
+const addRecipeForm = document.getElementById('add-recipe-form')
+const recipeNameInput = document.getElementById('recipe-name')
+
 
 const url='https://lud-recipe-app.herokuapp.com/api/recipes'
 
-addRecipeBtn.addEventListener("click", () => {
-
+addRecipeForm.addEventListener("submit", () => {
+  
   // create the new entry
   const newRecipe = {
-    name: "newRecipe"
+    name: recipeNameInput.value
   }
-  
+
+  console.log(newRecipe.name)
+
   // async add, then re-render
   addRecipe(newRecipe).then(data => {
     console.log(data)
     render()
   })
+
 })
 
 async function addRecipe(recipe) {

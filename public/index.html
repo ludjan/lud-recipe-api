@@ -10,12 +10,21 @@
 
   <body>
     <section>
-      <p id="greetings-text">Hello there!</p>
+      <p id="greetings-text">
+        <br>
+      </p>
     </section>
 
     <section>
       <h1>RECIPES</h1>
-      <button id="add-recipe-btn">ADD RECIPE</button>
+
+      <div>
+        <form id="add-recipe-form" onsubmit="return false">
+          <label for="recipe-name">Recipe name</label><br>
+          <input id="recipe-name" type="text" name="hest"><br>
+          <input type="submit" id="add-recipe-btn" value="Submit">
+        </form>
+      </div> 
       <div id="recipe-feed"></div>
     </section>
 

@@ -38,8 +38,10 @@ app.post('/api/recipes', (req, res) => {
 
   // validate and may return error on bad format
   const { error } = validateRecipe(req.body)
-  if (error) return res.status(400).send(`Encountered error: ${error.details[0].message}`)
-
+  if (error) {
+    console.log(error.details[0].message)
+    return res.status(400).send(`Encountered error: ${error.details[0].message}`)
+  }
   const { name } = req.body
   console.log(`Will try to insert new recipe ${name}`)
   const newRecipe = client.query(`INSERT INTO recipe (name) VALUES ('${name}')`, (err, query_res) => {
@@ -47,7 +49,10 @@ app.post('/api/recipes', (req, res) => {
       console.log(err.message) 
       res.status(500).send(err)
     }
-    else res.status(200).send(req.body)
+    else {
+      console.log(`Successfully created record ${name}`)
+      res.status(200).send(req.body)
+    }
   })
 })
 
