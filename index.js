@@ -15,6 +15,12 @@ app.use(express.static('public'));
 var http = require('http');
 var server = http.Server(app);
 
+var recipes = [ 
+  {id: 1, name: 'Korv'},
+  {id: 2, name: 'Hest'},
+  {id: 3, name: 'Mamma'}
+]
+
 // connect to pg database
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -30,15 +36,20 @@ app.use('/', (req, res) => {
 
 app.get('/api/recipes', (req, res) => {
 
-  client.query('SELECT * FROM recipe;', (err, query_res) => {
-    console.log("Something!")
-    if (err) throw err;
-    for (let row of query_res.rows) {
-      console.log(JSON.stringify(row));
-    }
-    res.status(200).send('Found it!')
-    client.end();
-  });
+  // client.query('SELECT * FROM recipe;', (err, query_res) => {
+  //   console.log("Something!")
+    
+  //   var response
+    
+  //   if (err) throw err;
+  //   for (let row of query_res.rows) {
+  //     response(JSON.stringify(row));
+  //   }
+  //   res.status(200).send('Found it!')
+  //   client.end();
+  // });
+
+  res.send(recipes)
 })
 
 server.listen(port, function() {
