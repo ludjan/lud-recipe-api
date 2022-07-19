@@ -30,8 +30,6 @@ app.get('/api/recipes/:id', db.getRecipeById)
 
 app.post('/api/recipes', db.createRecipe)
 
-// app.post('/api/recipes', (req, res) => {
-
 //   // validate and may return error on bad format
 //   const { error } = validateRecipe(req.body)
 //   if (error) {
@@ -52,6 +50,8 @@ app.post('/api/recipes', db.createRecipe)
 //     }
 //   })
 // })
+
+app.put('/api/recipes', db.updateRecipe)
 
 app.delete('api/recipes/:id', (req, res) => {
   
