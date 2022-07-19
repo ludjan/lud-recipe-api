@@ -19,7 +19,7 @@ addRecipeForm.addEventListener("submit", () => {
   // async add, then re-render
   addRecipe(newRecipe).then(data => {
     if (!data.ok) {
-      const errorMsg = `Error ${data.status} - ${data.statusText}`
+      const errorMessage = `Error ${data.status} - ${data.statusText}`
       console.log(errorMessage)
       alert(errorMessage)
       return
