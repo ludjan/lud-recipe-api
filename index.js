@@ -71,6 +71,5 @@ function validateRecipe(recipe) {
         .min(3)
         .required()
   })
-
-  return schema.validate(genre)
+  return schema.validate(recipe)
 }
