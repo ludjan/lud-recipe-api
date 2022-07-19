@@ -34,6 +34,22 @@ app.get('/api/recipes', (req, res) => {
   })
 })
 
+app.get('/api/recipes/:id', (req, res) => {
+  const { id } = req.params
+  console.log(`Will try to get recipe with id ${id}`)
+  const recipe = client.query(
+    `SELECT * FROM recipe WHERE id=${id}`, (err, query_res) => {
+    if (err) {
+      console.log(err.message)
+      res.status(404).send(err)
+    }
+    else {
+      console.log(`Successfully got record ${recipe}`)
+      res.status(200).send(recipe)
+    }
+  })
+})
+
 app.post('/api/recipes', (req, res) => {
 
   // validate and may return error on bad format
@@ -44,7 +60,8 @@ app.post('/api/recipes', (req, res) => {
   }
   const { name } = req.body
   console.log(`Will try to insert new recipe ${name}`)
-  const newRecipe = client.query(`INSERT INTO recipe (name) VALUES ('${name}')`, (err, query_res) => {
+  const newRecipe = client.query(
+    `INSERT INTO recipe (name) VALUES ('${name}')`, (err, query_res) => {
     if (err) {
       console.log(err.message) 
       res.status(500).send(err)
