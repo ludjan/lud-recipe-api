@@ -43,7 +43,7 @@ app.get('/api/recipes', (req, res) => {
     var response
     
     if (err) {
-      res.status(503).send(err.message);
+      res.status(503).send(err);
     } else {
       for (let row of query_res.rows) {
         response += JSON.stringify(row);
