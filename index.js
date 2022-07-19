@@ -14,11 +14,11 @@ var http = require('http');
 const { response } = require('express');
 var server = http.Server(app);
 
-var recipes = [ 
-  {id: 1, name: 'Korv'},
-  {id: 2, name: 'Hest'},
-  {id: 3, name: 'Mamma'}
-]
+// var recipes = [ 
+//   {id: 1, name: 'Korv'},
+//   {id: 2, name: 'Hest'},
+//   {id: 3, name: 'Mamma'}
+// ]
 
 // connect to pg database
 const client = new Client({
@@ -42,15 +42,18 @@ app.get('/api/recipes', (req, res) => {
     
     var response
     
-    if (err) throw err;
-    for (let row of query_res.rows) {
-      response += JSON.stringify(row);
+    if (err) {
+      res.status(503).send('Nothing here');
+    } else {
+      for (let row of query_res.rows) {
+        response += JSON.stringify(row);
+      }
+      res.status(200).send(response)
     }
-    res.status(200).send(response)
     client.end();
   });
 
-  res.status(200).send(recipes)
+  // res.status(200).send(recipes)
 })
 
 app.use(express.static('public'));
