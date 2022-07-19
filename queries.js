@@ -23,7 +23,7 @@ const getRecipeById = (request, response) => {
     const id = parseInt(request.params.id)
     console.log(`Getting recipe with id ${id}`)
   
-    client.query(`SELECT * FROM recipe WHERE id = ${id}`, (error, results) => {
+    client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${id}`, (error, results) => {
         if (error) throw error
         response.status(200).json(results.rows)
     })
@@ -52,8 +52,7 @@ const updateRecipe = (request, response) => {
         if (error) throw error
         console.log(`Updated record ${results.rows[0]}`)
         response.status(200).json(results.rows[0])
-        }
-    )
+    })
 }
   
 const deleteRecipe = (request, response) => {
