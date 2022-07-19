@@ -4,7 +4,7 @@ const Joi = require('joi') // class for validation
 var express = require('express')
 const cors = require('cors')
 
-const client = require('./db')
+const db = require('./queries')
 
 var app = express() // use the express framework to handle dynamic responses to different pages
 app.use(express.json()) // make sure express parses bodies with json
@@ -20,24 +20,23 @@ var server = http.Server(app)
 //   {id: 3, name: 'Mamma'}
 // ]
 
-// connect to pg database
-client.connect()
-
 app.get('favicon.ico'), (req, res) => {
   res.status(200).send()
 }
 
-app.get('/api/recipes', (req, res) => {
-  client.query('SELECT * FROM recipe;', (err, query_res) => {
-    if (err) res.status(503).send(err)
-    else res.status(200).send(query_res.rows)
-  })
-})
+app.get('/api/recipes', db.getRecipes)
+
+// app.get('/api/recipes', (req, res) => {
+//   db.query('SELECT * FROM recipe;', (err, query_res) => {
+//     if (err) res.status(503).send(err)
+//     else res.status(200).send(query_res.rows)
+//   })
+// })
 
 app.get('/api/recipes/:id', (req, res) => {
   const { id } = req.params
   console.log(`Will try to get recipe with id ${id}`)
-  const recipe = client.query(
+  const recipe = db.query(
     `SELECT * FROM recipe WHERE id=${id}`, (err, query_res) => {
     if (err) {
       console.log(err.message)
@@ -60,7 +59,7 @@ app.post('/api/recipes', (req, res) => {
   }
   const { name } = req.body
   console.log(`Will try to insert new recipe ${name}`)
-  const newRecipe = client.query(
+  const newRecipe = db.query(
     `INSERT INTO recipe (name) VALUES ('${name}')`, (err, query_res) => {
     if (err) {
       console.log(err.message) 
@@ -79,7 +78,7 @@ app.delete('api/recipes/:id', (req, res) => {
 
   const { id } = req.params
   console.log(`Will try to remove recipe with id ${id}`)
-  const result = client.query(
+  const result = db.query(
     `DELETE FROM recipe WHERE id=${id}`, (err, query_res) => {
       if (err) {
         console.log(err.message)

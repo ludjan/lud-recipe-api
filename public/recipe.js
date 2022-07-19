@@ -48,7 +48,7 @@ async function deleteRecipe(recipe) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body  
+    body: "something"
   }
 
   fetch(url, config)
@@ -68,7 +68,12 @@ async function render() {
       feed.innerHTML = `<ul>`
       data.forEach(recipe => {
         const recipeUrl = url + '/' + recipe.id
-        feed.innerHTML += `<li><a href="${recipeUrl}">${recipe.name}</a></li>`
+        feed.innerHTML += `
+        <li>
+          <a href="${recipeUrl}">
+            ${recipe.name}
+          </a>
+        </li>`
       })
       feed.innerHTML += `</ul>`
     })
