@@ -12,6 +12,7 @@ app.use(cors()) // make sure we can access the api from the outside
 
 var http = require('http');
 const { response, query } = require('express');
+const { hostname } = require('os');
 var server = http.Server(app);
 
 // var recipes = [ 
@@ -38,25 +39,17 @@ app.get('/api/recipes', (req, res) => {
   console.log('This is the recipe page')
 
   client.query('SELECT * FROM recipe;', (err, query_res) => {
-  
-    console.log(query_res)
-
-    var response
     
-    if (err) {
-      res.status(503).send(err);
-    } else {
-      res.status(200).send(query_res.rows)
-    }
+    if (err) res.status(503).send(err)
+    else res.status(200).send(query_res.rows)
     client.end();
-  });
-
-  // res.status(200).send(recipes)
+  })
 })
 
+// else, serve the index page of the public dir
 app.use(express.static('public'));
 
 server.listen(port, function() {
-  console.log(`Web server running on Heroku machine port ${port}`);
+  console.log(`Web server running on ${hostname} port ${port}`);
   return true
 });
