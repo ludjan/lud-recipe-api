@@ -37,18 +37,18 @@ app.get('/api/recipes', (req, res) => {
 
   console.log('This is the recipe page')
 
-  // client.query('SELECT * FROM recipe;', (err, query_res) => {
-  //   console.log("Something!")
+  client.query('SELECT * FROM recipe;', (err, query_res) => {
+    console.log("Something!")
     
-  //   var response
+    var response
     
-  //   if (err) throw err;
-  //   for (let row of query_res.rows) {
-  //     response(JSON.stringify(row));
-  //   }
-  //   res.status(200).send('Found it!')
-  //   client.end();
-  // });
+    if (err) throw err;
+    for (let row of query_res.rows) {
+      response += JSON.stringify(row);
+    }
+    res.status(200).send(response)
+    client.end();
+  });
 
   res.status(200).send(recipes)
 })
