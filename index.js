@@ -34,6 +34,8 @@ app.use('/', (req, res) => {
 
 app.get('/api/recipes', (req, res) => {
 
+  console.log('This is the recipe page')
+
   // client.query('SELECT * FROM recipe;', (err, query_res) => {
   //   console.log("Something!")
     
@@ -47,9 +49,8 @@ app.get('/api/recipes', (req, res) => {
   //   client.end();
   // });
 
-  res.send(recipes)
+  res.status(200).send(recipes)
 })
-
 
 app.use(express.static('public'));
 
