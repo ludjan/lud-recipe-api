@@ -53,7 +53,7 @@ app.post('/api/recipes', (req, res) => {
       console.log(err.message) 
       res.status(500).send(err)
     }
-    else res.status(200).send(query_res)
+    else res.status(200).send(req.body)
   })
 })
 

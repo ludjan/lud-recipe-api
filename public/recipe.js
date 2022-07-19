@@ -28,7 +28,6 @@ async function addRecipe(recipe) {
     },
     body: JSON.stringify(recipe)
   })
-  console.log(response)
   return response.json()
 }
 
