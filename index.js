@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/recipe/:id', (req, res) => {
-  res.render('recipe', )
+  res.render('recipe', { id: req.params.id, name: static})
 })
 
 app.get('favicon.ico', (req, res) => {
