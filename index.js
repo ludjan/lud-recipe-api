@@ -14,15 +14,19 @@ var http = require('http')
 const { hostname } = require('os')
 var server = http.Server(app)
 
-// var recipes = [ 
-//   {id: 1, name: 'Korv'},
-//   {id: 2, name: 'Hest'},
-//   {id: 3, name: 'Mamma'}
-// ]
+app.set('view-engine', 'ejs')
 
-app.get('favicon.ico'), (req, res) => {
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + 'public/index.html')
+})
+
+app.get('/recipe/:id', (req, res) => {
+  res.render('recipe', )
+})
+
+app.get('favicon.ico', (req, res) => {
   res.status(200).send()
-}
+})
 
 app.get('/api/recipes', db.getRecipes)
 
@@ -74,9 +78,6 @@ app.delete('/api/recipes/:id', db.deleteRecipe)
 //     }
 //   )
 // })
-
-// else, serve the index page of the public dir
-app.use(express.static('public'));
 
 server.listen(port, function() {
   console.log(`Web server running on ${hostname} port ${port}`)

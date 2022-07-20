@@ -5,6 +5,9 @@ const recipeNameInput = document.getElementById('recipe-name')
 
 const url='https://lud-recipe-app.herokuapp.com/api/recipes'
 
+console.log(`File name ${__filename}`)
+
+
 addRecipeForm.addEventListener("submit", () => {
   
   // create the new entry
