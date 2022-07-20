@@ -17,11 +17,11 @@ var server = http.Server(app)
 app.set('view-engine', 'ejs')
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + 'public/index.html')
+  res.sendFile(__dirname + '/public/index.html')
 })
 
 app.get('/recipe/:id', (req, res) => {
-  res.render('recipe', { id: req.params.id, name: static})
+  res.render('recipe', { id: req.params.id, name: "static"})
 })
 
 app.get('favicon.ico', (req, res) => {
