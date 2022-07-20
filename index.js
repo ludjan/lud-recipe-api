@@ -14,7 +14,7 @@ var http = require('http')
 const { hostname } = require('os')
 var server = http.Server(app)
 
-app.set('view-engine', 'ejs')
+app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
