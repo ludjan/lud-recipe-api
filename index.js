@@ -17,7 +17,10 @@ var server = http.Server(app)
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html')
+  const data = [
+    {id: 1, name: "Mat", taste: "digg"}
+  ]
+  res.render('recipeList', { data: data })
 })
 
 app.get('/recipe/:id', (req, res) => {
