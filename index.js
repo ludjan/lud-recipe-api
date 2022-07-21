@@ -17,9 +17,8 @@ var server = http.Server(app)
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
-  const data = [
-    {id: 1, name: "Mat", taste: "digg"}
-  ]
+  const data = {id: 1, name: "Mat", taste: "digg"}
+  
   res.render('recipeList', { data: data })
 })
 
