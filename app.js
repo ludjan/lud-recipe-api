@@ -92,7 +92,7 @@ app.delete('/api/recipes/:id', db.deleteRecipe)
 // })
 
 server.listen(port, function() {
-  console.log(`Web server running on ${hostname} port ${port}`)
+  console.log(`API running on ${hostname} port ${port}`)
   return true
 })
 
