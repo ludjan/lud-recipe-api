@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 app.get('/recipe/:id', (req, res) => {
 
   const targetId = parseInt(req.params.id)
-  const recipe = recipeList[targetId]
+  const recipe = recipeList.find( (r) => r.id == targetId )
 
   res.render('recipe', { data: recipe })
 })
