@@ -16,9 +16,9 @@ const { dirname } = require('path')
 var server = http.Server(app)
 
 const recipeList = [
-  { id: 1, name: "Mat", taste: "digg", link: "recipe/1" },
-  { id: 2, name: "Drikk", taste: "usch", link: "recipe/2"},
-  { id: 3, name: "Hulda", taste: "nja", link: "recipe/3" }
+  { id: 1, name: "Mat", taste: "digg", link: "recipes/1" },
+  { id: 2, name: "Drikk", taste: "usch", link: "recipes/2" },
+  { id: 3, name: "Hulda", taste: "nja", link: "recipes/3" }
 ]
 
 console.log(`filename ${__filename}`)
@@ -28,15 +28,12 @@ app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
 
-  const url = __filename + "/"
-  console.log(`url = ${url}`)
+  console.log(recipeList)
 
-  
-  
   res.render('recipeList', { data: recipeList })
 })
 
-app.get('/recipe/:id', (req, res) => {
+app.get('/recipes/:id', (req, res) => {
 
   const targetId = parseInt(req.params.id)
   const recipe = recipeList.find( (r) => r.id == targetId )
