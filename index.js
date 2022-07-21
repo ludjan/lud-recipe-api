@@ -12,15 +12,23 @@ app.use(cors()) // make sure we can access the api from the outside
 
 var http = require('http')
 const { hostname } = require('os')
+const { dirname } = require('path')
 var server = http.Server(app)
+
+console.log(`filename ${__filename}`)
+console.log(`dirname ${__dirname}`)
 
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
+
+  const url = __filename + "/"
+  console.log(`url = ${url}`)
+
   const data = [
-    { id: 1, name: "Mat", taste: "digg" },
-    { id: 2, name: "Drikk", taste: "usch" },
-    { id: 3, name: "Hulda", taste: "nja" }
+    { id: 1, name: "Mat", taste: "digg", link: "www.google.com" },
+    { id: 2, name: "Drikk", taste: "usch", link: "www.hester.no"},
+    { id: 3, name: "Hulda", taste: "nja", link: "www.vg.no" }
   ]
   
   res.render('recipeList', { data: data })
