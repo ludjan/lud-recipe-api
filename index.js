@@ -21,9 +21,6 @@ const recipeList = [
   { id: 3, name: "Hulda", taste: "nja", link: "recipes/3" }
 ]
 
-console.log(`filename ${__filename}`)
-console.log(`dirname ${__dirname}`)
-
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
