@@ -26,10 +26,9 @@
       </div> 
       <div id="recipe-feed">
           
-          <% console.log(data) %>
-        <p> <%= data.id %> </p>
-        <p> <%= data.name %> </p> 
-        <p> <%= data.taste %> </p>
+        <% for (let i = 0; i < data.length; i++) { %> 
+            <p> <%= data[i].id %> <%= data[i].name %> <%= data[i].taste %> </p>
+        <% } %>
       </div>
     </section>
 
