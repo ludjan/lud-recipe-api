@@ -15,6 +15,12 @@ const { hostname } = require('os')
 const { dirname } = require('path')
 var server = http.Server(app)
 
+const recipeList = [
+  { id: 1, name: "Mat", taste: "digg", link: "recipe/1" },
+  { id: 2, name: "Drikk", taste: "usch", link: "recipe/2"},
+  { id: 3, name: "Hulda", taste: "nja", link: "recipe/3" }
+]
+
 console.log(`filename ${__filename}`)
 console.log(`dirname ${__dirname}`)
 
@@ -25,17 +31,17 @@ app.get('/', (req, res) => {
   const url = __filename + "/"
   console.log(`url = ${url}`)
 
-  const data = [
-    { id: 1, name: "Mat", taste: "digg", link: "www.google.com" },
-    { id: 2, name: "Drikk", taste: "usch", link: "www.hester.no"},
-    { id: 3, name: "Hulda", taste: "nja", link: "www.vg.no" }
-  ]
   
-  res.render('recipeList', { data: data })
+  
+  res.render('recipeList', { data: recipeList })
 })
 
 app.get('/recipe/:id', (req, res) => {
-  res.render('recipe', { id: req.params.id, name: "static"})
+
+  const targetId = parseInt(req.params.id)
+  const recipe = recipeList[targetId]
+
+  res.render('recipe', { data: recipe })
 })
 
 app.get('favicon.ico', (req, res) => {
