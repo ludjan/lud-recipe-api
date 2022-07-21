@@ -1,2 +1,2 @@
-web: node index.js
-web: node /public/recipe.js
+web: node api.js
+web: node app.js
