@@ -31,6 +31,8 @@ const getRecipeById = (request, response) => {
   
 const createRecipe = (request, response) => {
     const { name, description } = request.body
+
+    console.log(`Trying to insert new entry with name ${name} and description ${description}`)
   
     // returning * in postgres causes insert to return the row it inserted
     client.query(`INSERT INTO recipe (name, description) VALUES ('${name}', '${description}') RETURNING *`, (error, results) => {
