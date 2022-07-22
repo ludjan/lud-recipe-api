@@ -44,9 +44,9 @@ const createRecipe = (request, response) => {
   
 const updateRecipe = (request, response) => {
     const id = parseInt(request.params.id)
-    const { name } = request.body
+    const { name, description } = request.body
   
-    console.log(`Updating entry with id ${id} to name ${name}`)
+    console.log(`Updating entry with id ${id} to name: ${name}, description: ${description}`)
 
     client.query(
       `UPDATE recipe_app.recipe SET name = '${name}', description = '${description}' WHERE id = ${id} RETURNING *`,
