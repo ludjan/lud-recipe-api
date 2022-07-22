@@ -49,7 +49,7 @@ const updateRecipe = (request, response) => {
     console.log(`Updating entry with id ${id} to name ${name}`)
 
     client.query(
-      `UPDATE recipe_app.recipe SET name = '${name}' WHERE id = ${id} RETURNING *`,
+      `UPDATE recipe_app.recipe SET name = '${name}', description = '${description}' WHERE id = ${id} RETURNING *`,
       (error, results) => {
         if (error) throw error
         console.log(`Updated record ${results.rows[0]}`)
