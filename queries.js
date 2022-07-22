@@ -24,7 +24,8 @@ const getRecipeById = (request, response) => {
     console.log(`Getting recipe with id ${id}`)
   
     client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${id}`, (error, results) => {
-        if (error) return response.status(404).send()
+        if (error) throw error
+        if (result.rows == null) response.status(404).send()
         response.status(200).json(results.rows)
     })
 }
