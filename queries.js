@@ -35,7 +35,7 @@ const createRecipe = (request, response) => {
     console.log(`Trying to insert new entry with name ${name} and description ${description}`)
   
     // returning * in postgres causes insert to return the row it inserted
-    client.query(`INSERT INTO recipe (name, description) VALUES ('${name}', '${description}') RETURNING *`, (error, results) => {
+    client.query(`INSERT INTO recipe_app.recipe (name, description) VALUES ('${name}', '${description}') RETURNING *`, (error, results) => {
         if (error) throw error
         console.log(results.rows[0])
         response.status(201).json(results.rows[0])
@@ -49,7 +49,7 @@ const updateRecipe = (request, response) => {
     console.log(`Updating entry with id ${id} to name ${name}`)
 
     client.query(
-      `UPDATE recipe SET name = '${name}' WHERE id = ${id} RETURNING *`,
+      `UPDATE recipe_app.recipe SET name = '${name}' WHERE id = ${id} RETURNING *`,
       (error, results) => {
         if (error) throw error
         console.log(`Updated record ${results.rows[0]}`)
@@ -60,7 +60,7 @@ const updateRecipe = (request, response) => {
 const deleteRecipe = (request, response) => {
     const id = parseInt(request.params.id)
   
-    client.query(`DELETE FROM recipe WHERE id = ${id} RETURNING *`, 
+    client.query(`DELETE FROM recipe_app.recipe WHERE id = ${id} RETURNING *`, 
     (error, results) => {
       if (error) throw error
       console.log(`Deleted record: ${results.rows[0]}`)
