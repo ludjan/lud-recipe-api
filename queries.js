@@ -27,7 +27,7 @@ const getRecipeById = (request, response) => {
         if (error) throw error
 
         if (results.rows.length == 0) return response.sendStatus(404)
-        response.status(200).json(results.rows)
+        response.status(200).json(results.rows[0])
     })
 }
   
