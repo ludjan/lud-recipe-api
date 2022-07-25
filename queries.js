@@ -11,7 +11,7 @@ client.connect()
 
 const getRecipes = (request, response) => {
     console.log('Getting all recipes')
-    client.query(`SELECT * FROM recipe_app.recipe ORDER BY id ASC`, (error, results) => {
+    client.query(`SELECT * FROM recipe_app.recipe ORDER BY id DSC`, (error, results) => {
         if (error) throw error
         response.status(200).json(results.rows)
     })
