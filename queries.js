@@ -100,12 +100,11 @@ const getStepById = (request, response) => {
 }
 
 const createStep = (request, response) => {
-    const { name, description } = request.body
+    const { recipeId, step_number, description } = request.body
 
-    console.log(`Trying to insert new entry with name ${name} and description ${description}`)
+    console.log(`Trying to insert new step for recipe with id ${recipeId}`)
   
-    // returning * in postgres causes insert to return the row it inserted
-    client.query(`INSERT INTO recipe_app.recipe (name, description) VALUES ('${name}', '${description}') RETURNING *`, (error, results) => {
+    client.query(`INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES ('${recipeId}', '${step_number}','${description}') RETURNING *`, (error, results) => {
         if (error) throw error
         console.log(results.rows[0])
         response.status(201).json(results.rows[0])
