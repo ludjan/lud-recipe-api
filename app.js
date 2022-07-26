@@ -40,6 +40,7 @@ app.get('/api/steps', db.getSteps)
 app.post('/api/steps', db.createStep)
 app.put('/api/steps/:id', db.updateStep)
 app.delete('/api/steps/:id', db.deleteStep)
+app.put('/api/reorder-steps', db.reorderSteps)
 
 
 server.listen(port, function() {
