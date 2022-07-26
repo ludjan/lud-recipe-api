@@ -70,7 +70,7 @@ const deleteRecipe = (request, response) => {
     })
   }
 
-const getStepsForRecipe = (request, response) => {
+const getSteps = (request, response) => {
 
     const id = parseInt(request.query.recipeId)
     console.log(`Getting all steps for recipe with id ${id}`)
@@ -112,8 +112,8 @@ module.exports = {
     createRecipe,
     updateRecipe,
     deleteRecipe,
-    getStepsForRecipe,
-    getStepById,
+    getSteps,
+    // getStepById,
     createStep,
     updateStep,
     deleteStep,
