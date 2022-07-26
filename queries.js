@@ -75,7 +75,7 @@ const getStepsForRecipe = (request, response) => {
     const id = parseInt(request.params.recipeId)
     console.log(`Getting all steps for recipe with id ${id}`)
 
-    client.query(`SELECT * FROM recipe_app.steps WHERE recipe_id = ${id} ORDER BY id`, (error, results) => {
+    client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${id} ORDER BY step_number`, (error, results) => {
         if (error) throw error
         response.status(200).json(results.rows)
     })
