@@ -39,7 +39,6 @@ CREATE TABLE recipe_app.recipeIngredientMeasurement (
   CHECK (quantity > 0)
 );
 
-
 INSERT INTO recipe_app.measurement (name) VALUES
 ('kryddmatt'),
 ('tesked'),
@@ -68,6 +67,3 @@ INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES
 (1, 3, 'Ha i salt, och kanske smor. Lat smeten vila 20 minuter'),
 (1, 4, 'Stek i pannan och njut!');
 
-
--- INSERT INTO recipe_app.recipeIngredientMeasurement VALUES
--- (1, )

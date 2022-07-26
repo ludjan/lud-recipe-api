@@ -72,7 +72,7 @@ const deleteRecipe = (request, response) => {
 
 const getStepsForRecipe = (request, response) => {
 
-    const id = parseInt(request.params.recipeId)
+    const id = parseInt(request.query.recipeId)
     console.log(`Getting all steps for recipe with id ${id}`)
 
     client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${id} ORDER BY step_number`, (error, results) => {
@@ -86,7 +86,16 @@ const getStepById = (request, response) => {
 }
 
 const createStep = (request, response) => {
+    const { name, description } = request.body
 
+    console.log(`Trying to insert new entry with name ${name} and description ${description}`)
+  
+    // returning * in postgres causes insert to return the row it inserted
+    client.query(`INSERT INTO recipe_app.recipe (name, description) VALUES ('${name}', '${description}') RETURNING *`, (error, results) => {
+        if (error) throw error
+        console.log(results.rows[0])
+        response.status(201).json(results.rows[0])
+    })
 }
 
 const updateStep = (request, response) => {
