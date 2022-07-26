@@ -148,5 +148,4 @@ module.exports = {
     createStep,
     updateStep,
     deleteStep,
-    reorderSteps,
 }
