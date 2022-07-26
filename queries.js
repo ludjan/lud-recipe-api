@@ -72,13 +72,27 @@ const deleteRecipe = (request, response) => {
 
 const getSteps = (request, response) => {
 
-    const id = parseInt(request.query.recipeId)
-    console.log(`Getting all steps for recipe with id ${id}`)
+    if (request.query.stepId != null) {
 
-    client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${id} ORDER BY step_number`, (error, results) => {
-        if (error) throw error
-        response.status(200).json(results.rows)
-    })
+        const stepId = parseInt(request.query.stepId)
+        console.log(`Getting step with id ${stepId}`)
+    
+        client.query(`SELECT * FROM recipe_app.step WHERE id = ${stepId}`, (error, results) => {
+            if (error) throw error
+            return response.status(200).json(results.rows)
+        })
+    }
+
+    if (request.query.recipeId != null) {
+        
+        const recipeId = parseInt(request.query.recipeId)
+        console.log(`Getting all steps for recipe with id ${recipeId}`)
+        
+        client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`, (error, results) => {
+            if (error) throw error
+            return response.status(200).json(results.rows)
+        })
+    }
 }
 
 const getStepById = (request, response) => {
