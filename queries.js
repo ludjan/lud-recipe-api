@@ -81,7 +81,7 @@ const getStepsForRecipe = (request, response) => {
     })
 }
 
-const getStepsById = (request, response) => {
+const getStepById = (request, response) => {
 
 }
 
@@ -96,13 +96,6 @@ const updateStep = (request, response) => {
 const deleteStep = (request, response) => {
     
 }
-  app.get('/api/steps/:recipeId', db.getStepsForRecipe)
-  app.get('/api/steps/:id', db.getStepById)
-  app.post('/api/steps', db.createStep)
-  app.put('/api/steps/:id', db.updateStep)
-  app.delete('/api/steps/:id', db.deleteStep)
-
-
 
 module.exports = {
     getRecipes,
@@ -110,5 +103,9 @@ module.exports = {
     createRecipe,
     updateRecipe,
     deleteRecipe,
-    getStepsForRecipe
+    getStepsForRecipe,
+    getStepById,
+    createStep,
+    updateStep,
+    deleteStep,
 }
