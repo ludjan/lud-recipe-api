@@ -72,7 +72,7 @@ const deleteRecipe = (request, response) => {
 
 const getStepsForRecipe = (request, response) => {
 
-    const id = parseInt(request.params.id)
+    const id = parseInt(request.params.recipeId)
     console.log(`Getting all steps for recipe with id ${id}`)
 
     client.query(`SELECT * FROM recipe_app.steps WHERE recipe_id = ${id} ORDER BY id`, (error, results) => {

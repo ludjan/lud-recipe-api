@@ -36,10 +36,10 @@ app.put('/api/recipes/:id', db.updateRecipe)
 app.delete('/api/recipes/:id', db.deleteRecipe)
 
 app.get('/api/steps/:recipeId', db.getStepsForRecipe)
-// app.get('/api/steps/:id', db.getStepById)
-// app.post('/api/steps', db.createStep)
-// app.put('/api/steps/:id', db.updateStep)
-// app.delete('/api/steps/:id', db.deleteStep)
+app.get('/api/steps/:id', db.getStepById)
+app.post('/api/steps', db.createStep)
+app.put('/api/steps/:id', db.updateStep)
+app.delete('/api/steps/:id', db.deleteStep)
 
 
 server.listen(port, function() {
