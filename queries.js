@@ -69,11 +69,46 @@ const deleteRecipe = (request, response) => {
       response.status(200).json(results.rows[0])
     })
   }
-  
+
+const getStepsForRecipe = (request, response) => {
+
+    const id = parseInt(request.params.id)
+    console.log(`Getting all steps for recipe with id ${id}`)
+
+    client.query(`SELECT * FROM recipe_app.steps WHERE recipe_id = ${id} ORDER BY id`, (error, results) => {
+        if (error) throw error
+        response.status(200).json(results.rows)
+    })
+}
+
+const getStepsById = (request, response) => {
+
+}
+
+const createStep = (request, response) => {
+
+}
+
+const updateStep = (request, response) => {
+    
+}
+
+const deleteStep = (request, response) => {
+    
+}
+  app.get('/api/steps/:recipeId', db.getStepsForRecipe)
+  app.get('/api/steps/:id', db.getStepById)
+  app.post('/api/steps', db.createStep)
+  app.put('/api/steps/:id', db.updateStep)
+  app.delete('/api/steps/:id', db.deleteStep)
+
+
+
 module.exports = {
     getRecipes,
     getRecipeById,
     createRecipe,
     updateRecipe,
-    deleteRecipe
+    deleteRecipe,
+    getStepsForRecipe
 }
