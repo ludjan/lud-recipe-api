@@ -115,6 +115,25 @@ const updateStep = (request, response) => {
     
 }
 
+const reorderSteps = (request, response) => {
+    const { recipeId, steps } = request.body
+
+    for (let i = 1; i <= steps.length; i++) {
+        client.query(`UPDATE recipe_app.step SET step_number = '${i}' WHERE id = ${steps[i].id}`, (error, results) => {
+            if (error) throw error
+            console.log(results.rows[0])
+        })
+    }
+    
+    client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`, (error, results) => {
+        if (error) throw error
+        return response.status(200).json(results.rows)
+    })
+
+
+
+}
+
 const deleteStep = (request, response) => {
     
 }
