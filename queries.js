@@ -145,7 +145,7 @@ const getIngredients = (request, response) => {
     })
 }
 
-const createIngredients = (request, response) => {
+const createIngredient = (request, response) => {
     const { name } = request.body
 
     console.log(`Trying to insert new entry with name ${name}`)
@@ -173,7 +173,7 @@ module.exports = {
     createStep,
     updateStep,
     deleteStep,
-    createIngredients,
+    createIngredient,
     getIngredients,
     getIngredientsForRecipe
 }
