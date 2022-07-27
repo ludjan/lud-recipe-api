@@ -42,6 +42,12 @@ app.put('/api/steps/:id', db.updateStep)
 app.delete('/api/steps/:id', db.deleteStep)
 // app.put('/api/reorder-steps', db.reorderSteps)
 
+app.get('/api/ingredients', db.getIngredients)
+// app.get('/api/recipes/:id', db.getRecipeById)
+// app.post('/api/recipes', db.createRecipe)
+// app.put('/api/recipes/:id', db.updateRecipe)
+// app.delete('/api/recipes/:id', db.deleteRecipe)
+
 
 server.listen(port, function() {
   console.log(`API running on ${hostname} port ${port}! Woho!`)

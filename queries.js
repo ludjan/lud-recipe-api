@@ -137,6 +137,14 @@ const deleteStep = (request, response) => {
     
 }
 
+const getIngredients = (request, response) => {
+    console.log('Getting all recipes')
+    client.query(`SELECT * FROM recipe_app.ingredients`, (error, results) => {
+        if (error) throw error
+        response.status(200).json(results.rows)
+    })
+}
+
 const getIngredientsForRecipe = (request, response) => {
     
 }
@@ -153,5 +161,6 @@ module.exports = {
     createStep,
     updateStep,
     deleteStep,
-    getIngredientsForRecipe
+    getIngredientsForRecipe,
+    getIngredients
 }
