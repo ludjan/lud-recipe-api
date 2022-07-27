@@ -145,6 +145,18 @@ const getIngredients = (request, response) => {
     })
 }
 
+const createIngredients = (request, response) => {
+    const { name } = request.body
+
+    console.log(`Trying to insert new entry with name ${name}`)
+  
+    client.query(`INSERT INTO recipe_app.ingredient (name) VALUES ('${name}') RETURNING *`, (error, results) => {
+        if (error) throw error
+        console.log(results.rows[0])
+        response.status(201).json(results.rows[0])
+    })
+}
+
 const getIngredientsForRecipe = (request, response) => {
     
 }
@@ -161,6 +173,7 @@ module.exports = {
     createStep,
     updateStep,
     deleteStep,
-    getIngredientsForRecipe,
-    getIngredients
+    createIngredients,
+    getIngredients,
+    getIngredientsForRecipe
 }
