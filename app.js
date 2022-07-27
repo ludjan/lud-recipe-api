@@ -48,6 +48,7 @@ app.post('/api/ingredients', db.createIngredient)
 // app.put('/api/recipes/:id', db.updateRecipe)
 // app.delete('/api/recipes/:id', db.deleteRecipe)
 
+app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe)
 
 server.listen(port, function() {
   console.log(`API running on ${hostname} port ${port}! Woho!`)

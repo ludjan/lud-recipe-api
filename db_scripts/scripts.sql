@@ -26,23 +26,25 @@ CREATE TABLE recipe_app.ingredient (
   created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
 );
 
-CREATE TABLE recipe_app.measurement (
+CREATE TABLE recipe_app.unit (
   id SERIAL PRIMARY KEY,
   name VARCHAR(50) NOT NULL 
 );
 
-CREATE TABLE recipe_app.recipeIngredientMeasurement (
+CREATE TABLE recipe_app.recipeIngredientUnit (
   recipe_id INT REFERENCES recipe_app.recipe(id),
-  ingredient_id INT REFERENCES recipe_app.recipe(id),
-  measurement_id INT REFERENCES recipe_app.measurement(id),
+  ingredient_id INT REFERENCES recipe_app.ingredient(id),
+  unit_id INT REFERENCES recipe_app.unit(id),
   quantity INT NOT NULL,
-  CHECK (quantity > 0)
+  CHECK (quantity > 0),
+  PRIMARY KEY (recipe_id, ingredient_id, unit_id)
 );
 
-INSERT INTO recipe_app.measurement (name) VALUES
-('kryddmatt'),
-('tesked'),
-('matsked'),
+INSERT INTO recipe_app.unit (name) VALUES
+('piece'),
+('spicespoon'),
+('teaspoon'),
+('tablespoon'),
 ('deciliter'),
 ('liter');
 
@@ -66,4 +68,10 @@ INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES
 (1, 2, 'Ha i resten av mjolken, vispa mer, och ha i agg'),
 (1, 3, 'Ha i salt, och kanske smor. Lat smeten vila 20 minuter'),
 (1, 4, 'Stek i pannan och njut!');
+
+INSERT INTO recipe_app.recipeIngredientUnit(recipe_id, ingredient_id, unit_id, quantity) VALUES
+(1, 2, 1, 2),
+(1, 3, 5, 4),
+(1, 4, 5, 2),
+(1, 5, 2, 2);
 
