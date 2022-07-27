@@ -137,6 +137,11 @@ const deleteStep = (request, response) => {
     
 }
 
+const getIngredientsForRecipe = (request, response) => {
+    
+}
+
+
 module.exports = {
     getRecipes,
     getRecipeById,
@@ -148,4 +153,5 @@ module.exports = {
     createStep,
     updateStep,
     deleteStep,
+    getIngredientsForRecipe
 }
