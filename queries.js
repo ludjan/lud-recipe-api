@@ -161,7 +161,7 @@ const getIngredientsForRecipe = (request, response) => {
     const recipeId = parseInt(request.query.recipeId)
     console.log(`Trying to get ingredients for recipe with id = ${recipeId}`)
     
-    client.query(`SELECT * FROM recipe_app.recipeIngredientSimple WHERE recipe_id = ${recipeId}`, (error, results) => {
+    client.query(`SELECT * FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`, (error, results) => {
         if (error) throw error
         response.status(200).json(results.rows)
     })
