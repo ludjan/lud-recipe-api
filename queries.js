@@ -173,15 +173,18 @@ const getFullRecipe = (request, response) => {
     
     const recipeResponse = {
         recipe: null,
-        ingredients: null
+        ingredients: null,
+        steps: null
     }
 
     Promise.all([
         client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
-        client.query(`SELECT ingredient, quantity, unit FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`)
-      ]).then(function([recipeResults, ingredientsResults]) {
+        client.query(`SELECT ingredient, quantity, unit FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`),
+        client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`)
+      ]).then(function([recipeResults, ingredientsResults, stepResults]) {
         recipeResponse.recipe = recipeResults.rows[0]
         recipeResponse.ingredients = ingredientsResults.rows
+        recipeResponse.steps = stepResults.rows
 
         response.status(200).json(recipeResponse);
       }, function(error) {
