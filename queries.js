@@ -171,7 +171,10 @@ const getFullRecipe = (request, response) => {
     const recipeId = parseInt(request.query.recipeId)
     console.log(`Trying to get ingredients for recipe with id = ${recipeId}`)
     
-    return getRecipeById(request, response)
+    const recipe = getRecipeById(request, response)
+
+
+    return recipe
 }
 
 
