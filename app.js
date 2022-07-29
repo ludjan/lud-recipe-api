@@ -50,6 +50,8 @@ app.post('/api/ingredients', db.createIngredient)
 
 app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe)
 
+app.get('/api/fullRecipe/:id', db.getFullRecipe)
+
 server.listen(port, function() {
   console.log(`API running on ${hostname} port ${port}! Woho!`)
   return true

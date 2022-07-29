@@ -167,6 +167,13 @@ const getIngredientsForRecipe = (request, response) => {
     })
 }
 
+const getFullRecipe = (request, response) => {
+    const recipeId = parseInt(request.query.recipeId)
+    console.log(`Trying to get ingredients for recipe with id = ${recipeId}`)
+    
+    return getRecipeById(recipeId(request, response))
+}
+
 
 // comment
 
@@ -183,5 +190,6 @@ module.exports = {
     deleteStep,
     createIngredient,
     getIngredients,
-    getIngredientsForRecipe
+    getIngredientsForRecipe,
+    getFullRecipe
 }
