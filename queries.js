@@ -64,8 +64,8 @@ const deleteRecipe = (request, response) => {
     const id = parseInt(request.params.id)
     console.log(`Deleting step with id ${stepId}`)
 
-    client.query(`DELETE FROM recipe_app.recipe WHERE id = ${id} RETURNING *`, 
-    (error, results) => {
+    client.query(
+        `DELETE FROM recipe_app.recipe WHERE id = ${id} RETURNING *`, (error, results) => {
       if (error) throw error
       console.log(`Deleted record: ${results.rows[0]}`)
       response.status(200).json(results.rows[0])
@@ -216,6 +216,35 @@ const getFullRecipe = (request, response) => {
       });  
 }
 
+const createFullRecipe = (request, response) => {
+
+    const { recipe, ingredients } = request.body
+
+    const newRecipe = {
+        recipe: null,
+        ingredients: null,
+        steps: null
+    }
+
+    const { name, description } = request.body
+    console.log(`Trying to insert new entry with name ${name} and description ${description}`)
+  
+    client.query(
+        `INSERT INTO recipe_app.recipe (name, description, portions) 
+        VALUES ('${recipe.name}', '${recipe.description}', '${recipe.portions}') RETURNING id`, (error, results) => {
+        if (error) throw error
+        console.log(`Rows: ${results.rows[0]}`)
+    }).then(result => {
+        console.log(result)
+    })
+    
+    response.status(201).json(results.rows[0])
+    // create new recipe
+
+
+
+}
+
 const updateFullRecipe = (request, response) => {
 
     // update recipe table by id
@@ -249,5 +278,6 @@ module.exports = {
     getIngredients,
     getIngredientsForRecipe,
     getFullRecipe,
-    updateFullRecipe
+    updateFullRecipe,
+    createFullRecipe
 }
