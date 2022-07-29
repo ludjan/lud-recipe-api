@@ -222,7 +222,7 @@ const updateFullRecipe = (request, response) => {
     console.log(str)
     console.log(removedLastCommaStr)
 
-    client.query(`INSERT INTO recipe_app.ingredient (name) VALUES ${removedLastCommaStr} RETURNING *`), (error, results) => {
+    client.query(`INSERT INTO recipe_app.ingredient (name) VALUES ${removedLastCommaStr}`), (error, results) => {
         if (error) throw error
         response.status(200).json(results.rows)
     }
