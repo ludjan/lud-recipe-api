@@ -209,50 +209,19 @@ const getFullRecipe = (request, response) => {
 }
 
 const updateFullRecipe = (request, response) => {
-    
-    const newIngredients = [ 'horse', 'pig', 'cow' ]
-    console.log(newIngredients)
-    
-    var str = ""
-    newIngredients.forEach(ingredient => {
-        str += `('${ingredient}'),`
-    })
-    removedLastCommaStr = str.substring(0, str.length-1)
 
-    console.log(str)
-    console.log(removedLastCommaStr)
+    // update recipe table by id
 
-    // const sql = `INSERT INTO recipe_app.ingredient (name) VALUES ${removedLastCommaStr}`
+    // update recipeIngredientUnit table
+        // remove all ingredients for this recipe
+        // insert lsit of new ingredients
 
-    client.query(`INSERT INTO recipe_app.ingredient (name) VALUES ${removedLastCommaStr}`, (error, results) => {
-        if (error) throw error
-        response.status(200).json(results.rows)
-    })
+    // update steps table
+        // remove all steps for this recipe
+        // insert list of new steps
 
-    // const recipeId = parseInt(request.params.id)
-    // console.log(`Trying to get full recipe with id = ${recipeId}`)
-    
-    // const recipeResponse = {
-    //     recipe: null,
-    //     ingredients: null,
-    //     steps: null
-    // }
+    response.sendStatus(400)
 
-    // Promise.all(
-    // [   client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
-    //     client.query(`SELECT ingredient, quantity, unit FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`),
-    //     client.query(`SELECT step_number, description FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`)
-    // ]).then(function([recipeResults, ingredientsResults, stepResults]) {
-    //     if (recipeResults.rows[0] == null) throw error
-
-    //     recipeResponse.recipe = recipeResults.rows[0]
-    //     recipeResponse.ingredients = ingredientsResults.rows
-    //     recipeResponse.steps = stepResults.rows
-
-    //     response.status(200).json(recipeResponse);
-    //   }, function(error) {
-    //     throw error;
-    //   });  
 }
 
 module.exports = {
