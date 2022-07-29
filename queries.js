@@ -172,16 +172,37 @@ const getFullRecipe = (request, response) => {
     console.log(`Trying to get ingredients for recipe with id = ${recipeId}`)
     
     const recipeResponse = {
-        recipe: null
+        recipe: null,
+        ingredients: null
     }
 
-    recipeResponse.recipe = client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`, (error, results) => {
-        if (error) throw error
-        if (results.rows.length == 0) return response.sendStatus(404)
-        return results.rows[0]
-    })
+    Promise.all([
+        pool.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
+        pool.query(`SELECT * FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`)
+      ]).then(function([recipeResults, ingredientsResults]) {
+        recipeResponse.recipe = recipeResults
+        recipeResponse.ingredients = ingredientsResults
 
-    response.status(200).json(recipeResponse)
+        response.status(200).json(recipeResponse);
+      }, function(error) {
+        throw error;
+      });
+        
+    }
+
+    // const recipeResponse = {
+    //     recipe: null
+    // }
+
+    
+
+    // recipeResponse.recipe = client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`, (error, results) => {
+    //     if (error) throw error
+    //     if (results.rows.length == 0) return response.sendStatus(404)
+    //     return results.rows[0]
+    // })
+
+    // response.status(200).json(recipeResponse)
 }
 
 
