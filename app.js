@@ -42,6 +42,7 @@ app.put('/api/steps/:id', db.updateStep)
 app.delete('/api/steps/:id', db.deleteStep)
 // app.put('/api/reorder-steps', db.reorderSteps)
 app.post('/api/steps-insert', db.createStepInsert)
+app.get('/api/getRecipeSteps', db.getRecipeSteps)
 
 app.get('/api/ingredients', db.getIngredients)
 // app.get('/api/recipes/:id', db.getRecipeById)
