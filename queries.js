@@ -178,7 +178,7 @@ const getFullRecipe = (request, response) => {
 
     Promise.all([
         client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
-        client.query(`SELECT * FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`)
+        client.query(`SELECT ingredient, quantity, unit FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`)
       ]).then(function([recipeResults, ingredientsResults]) {
         recipeResponse.recipe = recipeResults.rows[0]
         recipeResponse.ingredients = ingredientsResults.rows
