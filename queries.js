@@ -175,7 +175,7 @@ const getFullRecipe = (request, response) => {
         recipe: null
     }
 
-    recipeResponse.recipe = client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${id}`, (error, results) => {
+    recipeResponse.recipe = client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`, (error, results) => {
         if (error) throw error
         if (results.rows.length == 0) return response.sendStatus(404)
         return results.rows[0]
