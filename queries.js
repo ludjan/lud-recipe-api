@@ -180,10 +180,6 @@ const getFullRecipe = (request, response) => {
         if (results.rows.length == 0) return response.sendStatus(404)
         return results.rows[0]
     })
-    
-    
-    getRecipeById(request, response)
-
 
     return recipeResponse
 }
