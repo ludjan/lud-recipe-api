@@ -218,6 +218,8 @@ const getFullRecipe = (request, response) => {
 
 const createFullRecipe = (request, response) => {
 
+    console.log(request.body)
+
     const { recipe, ingredients } = request.body
 
     const newRecipe = {
