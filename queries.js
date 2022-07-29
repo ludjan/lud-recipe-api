@@ -188,7 +188,7 @@ const getFullRecipe = (request, response) => {
         throw error;
       });
         
-    }
+}
 
     // const recipeResponse = {
     //     recipe: null
@@ -203,7 +203,7 @@ const getFullRecipe = (request, response) => {
     // })
 
     // response.status(200).json(recipeResponse)
-}
+// }
 
 
 // comment
