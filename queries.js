@@ -212,8 +212,14 @@ const updateFullRecipe = (request, response) => {
     
     const newIngredients = [ 'horse', 'pig', 'cow' ]
     console.log(newIngredients)
+    
+    var str = ""
+    newIngredients.forEach(ingredient => {
+        str += `('${ingredient}'),`
+    })
+    console.log(str)
 
-    client.query(`INSERT INTO recipe_app.ingredient (name) VALUES (${newIngredients.toString}) RETURNING *`), (error, results) => {
+    client.query(`INSERT INTO recipe_app.ingredient (name) VALUES (${newIngredients}) RETURNING *`), (error, results) => {
         if (error) throw error
         response.status(200).json(results.rows)
     }
