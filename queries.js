@@ -10,7 +10,9 @@ const client = new Client( {
 client.connect()
 
 const getRecipes = (request, response) => {
+    
     console.log('Getting all recipes')
+    
     client.query(`SELECT * FROM recipe_app.recipe ORDER BY id DESC`, (error, results) => {
         if (error) throw error
         response.status(200).json(results.rows)
@@ -32,8 +34,8 @@ const getRecipeById = (request, response) => {
 }
   
 const createRecipe = (request, response) => {
-    const { name, description } = request.body
 
+    const { name, description } = request.body
     console.log(`Trying to insert new entry with name ${name} and description ${description}`)
   
     // returning * in postgres causes insert to return the row it inserted
@@ -60,6 +62,7 @@ const updateRecipe = (request, response) => {
 }
   
 const deleteRecipe = (request, response) => {
+    
     const id = parseInt(request.params.id)
   
     client.query(`DELETE FROM recipe_app.recipe WHERE id = ${id} RETURNING *`, 
@@ -95,7 +98,16 @@ const getSteps = (request, response) => {
     }
 }
 
-const getStepById = (request, response) => {
+const getRecipeSteps = (request, response) => {
+   
+    const recipeId = parseInt(request.query.recipeId)
+    console.log(`Getting all steps for recipe with id ${recipeId}`)
+    
+    client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`, (error, results) => {
+        if (error) throw error
+        return response.status(200).json(results.rows)
+    })
+
 }
 
 const createStep = (request, response) => {
@@ -135,6 +147,29 @@ const updateStep = (request, response) => {
 
 const deleteStep = (request, response) => {
     
+}
+
+const createStepInsert = (request, response) => {
+    const { recipeId, step_number, description } = request.body
+    console.log(`Trying to insert ${description} as step ${step_number} for recipeId ${recipeId}`)
+
+    Promise.all(
+        [   client.query(`
+                UPDATE recipe_app.recipe
+                SET step_number = step_number + 1 
+                WHERE id = ${recipeId} AND step_number >= ${step_number}`
+            ),
+            client.query(`
+                INSERT INTO recipe_app.step (recipe_id, step_number, description) 
+                VALUES ('${recipeId}', '${step_number}','${description}') RETURNING *`
+            )
+        ]).then(function([updateResults, insertResults]) {
+            
+            response.status(200).json(insertResults.rows[0]);
+          }, function(error) {
+            throw error;
+          });  
+
 }
 
 const getIngredients = (request, response) => {
@@ -194,6 +229,34 @@ const getFullRecipe = (request, response) => {
       });  
 }
 
+const updateFullRecipe = (request, response) => {
+    
+    const recipeId = parseInt(request.params.id)
+    console.log(`Trying to get full recipe with id = ${recipeId}`)
+    
+    const recipeResponse = {
+        recipe: null,
+        ingredients: null,
+        steps: null
+    }
+
+    Promise.all(
+    [   client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
+        client.query(`SELECT ingredient, quantity, unit FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`),
+        client.query(`SELECT step_number, description FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`)
+    ]).then(function([recipeResults, ingredientsResults, stepResults]) {
+        if (recipeResults.rows[0] == null) throw error
+
+        recipeResponse.recipe = recipeResults.rows[0]
+        recipeResponse.ingredients = ingredientsResults.rows
+        recipeResponse.steps = stepResults.rows
+
+        response.status(200).json(recipeResponse);
+      }, function(error) {
+        throw error;
+      });  
+}
+
 module.exports = {
     getRecipes,
     getRecipeById,
@@ -203,8 +266,10 @@ module.exports = {
     getSteps,
     // getStepById,
     createStep,
+    getRecipeSteps,
     updateStep,
     deleteStep,
+    createStepInsert,
     createIngredient,
     getIngredients,
     getIngredientsForRecipe,

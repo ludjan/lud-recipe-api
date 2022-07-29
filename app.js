@@ -41,6 +41,7 @@ app.post('/api/steps', db.createStep)
 app.put('/api/steps/:id', db.updateStep)
 app.delete('/api/steps/:id', db.deleteStep)
 // app.put('/api/reorder-steps', db.reorderSteps)
+app.post('/api/steps-insert', db.createStepInsert)
 
 app.get('/api/ingredients', db.getIngredients)
 // app.get('/api/recipes/:id', db.getRecipeById)
@@ -51,6 +52,7 @@ app.post('/api/ingredients', db.createIngredient)
 app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe)
 
 app.get('/api/fullRecipe/:id', db.getFullRecipe)
+app.post('/api/updateFullRecipe/:id', db.updateFullRecipe)
 
 server.listen(port, function() {
   console.log(`API running on ${hostname} port ${port}! Woho!`)
