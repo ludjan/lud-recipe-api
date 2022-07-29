@@ -180,8 +180,8 @@ const getFullRecipe = (request, response) => {
         client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
         client.query(`SELECT * FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`)
       ]).then(function([recipeResults, ingredientsResults]) {
-        recipeResponse.recipe = recipeResults
-        recipeResponse.ingredients = ingredientsResults
+        recipeResponse.recipe = recipeResults.rows[0]
+        recipeResponse.ingredients = ingredientsResults.rows
 
         response.status(200).json(recipeResponse);
       }, function(error) {
