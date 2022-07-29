@@ -169,7 +169,7 @@ const getIngredientsForRecipe = (request, response) => {
 
 const getFullRecipe = (request, response) => {
     const recipeId = parseInt(request.params.id)
-    console.log(`Trying to get ingredients for recipe with id = ${recipeId}`)
+    console.log(`Trying to get full recipe with id = ${recipeId}`)
     
     const recipeResponse = {
         recipe: null,
@@ -177,11 +177,11 @@ const getFullRecipe = (request, response) => {
         steps: null
     }
 
-    Promise.all([
-        client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
+    Promise.all(
+    [   client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
         client.query(`SELECT ingredient, quantity, unit FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`),
         client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`)
-      ]).then(function([recipeResults, ingredientsResults, stepResults]) {
+    ]).then(function([recipeResults, ingredientsResults, stepResults]) {
         recipeResponse.recipe = recipeResults.rows[0]
         recipeResponse.ingredients = ingredientsResults.rows
         recipeResponse.steps = stepResults.rows
@@ -189,27 +189,8 @@ const getFullRecipe = (request, response) => {
         response.status(200).json(recipeResponse);
       }, function(error) {
         throw error;
-      });
-        
+      });  
 }
-
-    // const recipeResponse = {
-    //     recipe: null
-    // }
-
-    
-
-    // recipeResponse.recipe = client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`, (error, results) => {
-    //     if (error) throw error
-    //     if (results.rows.length == 0) return response.sendStatus(404)
-    //     return results.rows[0]
-    // })
-
-    // response.status(200).json(recipeResponse)
-// }
-
-
-// comment
 
 module.exports = {
     getRecipes,
