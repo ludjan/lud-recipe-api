@@ -228,8 +228,7 @@ const createFullRecipe = (request, response) => {
         steps: null
     }
 
-    const { name, description } = request.body
-    console.log(`Trying to insert new entry with name ${name} and description ${description}`)
+    console.log(`Trying to insert new entry with name ${recipe.name} and description ${recipe.description}`)
   
     client.query(
         `INSERT INTO recipe_app.recipe (name, description, portions) 
