@@ -181,28 +181,36 @@ const getIngredientsForRecipe = (request, response) => {
 }
 
 const getFullRecipe = (request, response) => {
-    
+
+    // parse and log
     const recipeId = parseInt(request.params.id)
     console.log(`Trying to get full recipe with id = ${recipeId}`)
     
+    // return object
     const recipeResponse = {
         recipe: null,
         ingredients: null,
         steps: null
     }
 
+    // Promise.all takes a list of async function calls and waits until all are complete before it returns
     Promise.all(
     [   client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
         client.query(`SELECT ingredient, quantity, unit FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`),
         client.query(`SELECT step_number, description FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`)
     ]).then(function([recipeResults, ingredientsResults, stepResults]) {
+
+        // catch if id does not exist
         if (recipeResults.rows[0] == null) throw error
 
+        // prepare the response
         recipeResponse.recipe = recipeResults.rows[0]
         recipeResponse.ingredients = ingredientsResults.rows
         recipeResponse.steps = stepResults.rows
 
-        response.status(200).json(recipeResponse);
+        // send the response 
+        response.status(200).json(recipeResponse)
+
       }, function(error) {
         throw error;
       });  
