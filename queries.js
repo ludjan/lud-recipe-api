@@ -181,7 +181,7 @@ const getFullRecipe = (request, response) => {
         return results.rows[0]
     })
 
-    return recipeResponse
+    response.status(200).json(recipeResponse)
 }
 
 
