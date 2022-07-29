@@ -180,7 +180,7 @@ const getFullRecipe = (request, response) => {
     Promise.all(
     [   client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${recipeId}`),
         client.query(`SELECT ingredient, quantity, unit FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`),
-        client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`)
+        client.query(`SELECT step_number, description FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`)
     ]).then(function([recipeResults, ingredientsResults, stepResults]) {
         if (recipeResults.rows[0] == null) throw error
 
