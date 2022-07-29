@@ -235,7 +235,7 @@ const createFullRecipe = (request, response) => {
         VALUES ('${recipe.name}', '${recipe.description}', '${recipe.portions}') RETURNING id`, (error, results) => {
         if (error) throw error
         console.log(`Rows: ${results.rows[0]}`)
-    }).then(result => {
+    }).then((result) => {
         console.log(result)
     })
     
