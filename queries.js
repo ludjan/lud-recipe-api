@@ -217,7 +217,10 @@ const updateFullRecipe = (request, response) => {
     newIngredients.forEach(ingredient => {
         str += `('${ingredient}'),`
     })
+    removedLastCommaStr = str.substring(0, str.length-1)
+
     console.log(str)
+    console.log(removedLastCommaStr)
 
     client.query(`INSERT INTO recipe_app.ingredient (name) VALUES (${newIngredients}) RETURNING *`), (error, results) => {
         if (error) throw error
