@@ -182,6 +182,8 @@ const getFullRecipe = (request, response) => {
         client.query(`SELECT ingredient, quantity, unit FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`),
         client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`)
     ]).then(function([recipeResults, ingredientsResults, stepResults]) {
+        if (recipeResults.rows[0] == null) throw error
+
         recipeResponse.recipe = recipeResults.rows[0]
         recipeResponse.ingredients = ingredientsResults.rows
         recipeResponse.steps = stepResults.rows
