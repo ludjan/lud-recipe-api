@@ -258,20 +258,13 @@ const createFullRecipe = (request, response) => {
         client.query(
             `INSERT INTO recipe_app.recipeIngredientUnit (recipe_id, ingredient_id, unit_id, quantity) VALUES ${valuesStr} RETURNING *`,
             (error, results) => {
-                if (error) throw error
-                console.log(results)
-            }
-        )
+            if (error) throw error
+            console.log(results)
 
-        return results.rows[0].id
+            response.status(201).json(results)
+            
+        })
     })
-
-    
-    // response.status(201).json(results.rows[0])
-    // create new recipe
-
-
-
 }
 
 const updateFullRecipe = (request, response) => {
