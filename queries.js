@@ -323,5 +323,6 @@ module.exports = {
     getIngredientsForRecipe,
     getFullRecipe,
     updateFullRecipe,
-    createFullRecipe
+    createFullRecipe,
+    getUnits
 }
