@@ -241,28 +241,42 @@ const createFullRecipe = (request, response) => {
         // format the recipeIngredientUnit values
         // (1,2,3,4)
         
-        var valuesStr = "";
+        var insertRelationValuesStr = "";
 
         for (let i=0; i<ingredients.length; i++) {
             var element = ingredients[i]
-            valuesStr += `(${id}, ${element.ingredientId}, ${element.quantity}, (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'))`
+            insertRelationValuesStr += `(${id}, ${element.ingredientId}, ${element.quantity}, (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'))`
             if (i != ingredients.length-1) {
-                valuesStr += `, `
+                insertRelationValuesStr += `, `
             }
         }
 
         console.log(valuesStr)
 
-
         // next query
         client.query(
-            `INSERT INTO recipe_app.recipeIngredientUnit (recipe_id, ingredient_id, unit_id, quantity) VALUES ${valuesStr} RETURNING *`,
+            `INSERT INTO recipe_app.recipeIngredientUnit (recipe_id, ingredient_id, unit_id, quantity) VALUES ${insertRelationValuesStr} RETURNING *`,
             (error, results) => {
             if (error) throw error
             console.log(results)
 
-            response.status(201).json(results)
-            
+            var insertStepStr = "";
+
+            for (let i=0; i<steps.length; i++) {
+                var element = steps[i]
+                insertStepStr += `(${element.recipeId}, ${i+1}, '${element.description}')`
+                if (i != ingredients.length-1) {
+                    insertStepStr += `, `
+                }
+            }
+
+            console.log(`Trying to insert new step for recipe with id ${recipeId}`)
+        
+            client.query(`INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES ${insertStepStr} RETURNING *`, (error, results) => {
+                if (error) throw error
+                console.log(results.rows[0])
+                response.status(201).json(results.rows[0])
+            })
         })
     })
 }
