@@ -253,7 +253,7 @@ const createFullRecipe = (request, response) => {
 
         // console.log(insertRelationValuesStr)
 
-        // next query
+        // next queryy
         client.query(
             `INSERT INTO recipe_app.recipeIngredientUnit (recipe_id, ingredient_id, unit_id, quantity) VALUES ${insertRelationValuesStr} RETURNING *`,
             (error, results) => {
