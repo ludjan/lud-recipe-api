@@ -245,7 +245,10 @@ const createFullRecipe = (request, response) => {
 
         for (let i=0; i<ingredients.length; i++) {
             var element = ingredients[i]
-            valuesStr += `(${id}, ${element.ingredientId}, ${element.quantity}, (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}')) `
+            valuesStr += `(${id}, ${element.ingredientId}, ${element.quantity}, (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'))`
+            if (i != ingredients.length-1) {
+                valuesStr += `, `
+            }
         }
 
         console.log(valuesStr)
