@@ -275,7 +275,7 @@ const createFullRecipe = (request, response) => {
             client.query(`INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES ${insertStepStr} RETURNING *`, (error, results) => {
                 if (error) throw error
                 // console.log(results.rows[0])
-                response.status(201)
+                response.sendStatus(201)
             })
         })
     })
