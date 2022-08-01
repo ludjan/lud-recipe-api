@@ -231,19 +231,16 @@ const createFullRecipe = (request, response) => {
 
     console.log(`Trying to insert new entry with name ${recipe.name} and description ${recipe.description}`)
   
-    client.query(`INSERT INTO recipe_app.recipe (name, description, portions) VALUES ('${recipe.name}', '${recipe.description}', ${portionsInt}) RETURNING *`, (error, results) => {
+    client.query(
+        `INSERT INTO recipe_app.recipe (name, description, portions) VALUES ('${recipe.name}', '${recipe.description}', ${portionsInt}) RETURNING *`, 
+        (error, results) => {
         if (error) throw error
-        // console.log(`Rows: ${results.rows[0].id}`)
+        const id = results.rows[0].id
+        console.log(id)
+        // next query
         return results.rows[0].id
     })
-    .then((id) => {
-        console.log(`Id is ${id}`)
-    })
 
-
-    // .then((result) => {
-    //     console.log(result.rows)
-    // })
     
     response.status(201).json(results.rows[0])
     // create new recipe
