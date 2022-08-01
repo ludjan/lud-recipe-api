@@ -235,9 +235,10 @@ const createFullRecipe = (request, response) => {
         if (error) throw error
         console.log(`Rows: ${results.rows[0]}`)
         return results.rows[0]
-    }).then((result) => {
-        console.log(result.rows)
     })
+    // .then((result) => {
+    //     console.log(result.rows)
+    // })
     
     response.status(201).json(results.rows[0])
     // create new recipe
