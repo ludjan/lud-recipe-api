@@ -85,10 +85,9 @@ const getStep = (request, response) => {
 
 const getSteps = (request, response) => {
 
-    const stepId = parseInt(request.query.stepId)
-    console.log(`Getting step with id ${stepId}`)
+    console.log(`Getting all steps`)
 
-    client.query(`SELECT * FROM recipe_app.step WHERE id = ${stepId}`, (error, results) => {
+    client.query(`SELECT * FROM recipe_app.step`, (error, results) => {
         if (error) throw error
         return response.status(200).json(results.rows)
     })
