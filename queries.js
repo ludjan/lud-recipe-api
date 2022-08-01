@@ -237,12 +237,33 @@ const createFullRecipe = (request, response) => {
         if (error) throw error
         const id = results.rows[0].id
         console.log(id)
+
+        // format the recipeIngredientUnit values
+        // (1,2,3,4)
+        
+        var valuesStr = "";
+
+        ingredients.array.forEach(element => {
+            valuesStr += `(${id}, ${element.ingredientId}, ${element.quantity}, SELECT id FROM recipe_app.unit WHERE name = '${element.unit}') `
+        })
+
+        console.log(valuesStr)
+
+
         // next query
+        client.query(
+            `INSERT INTO recipe_app.recipeIngredientUnit (recipeId, ingredient_id, unit_id, quantity) VALUES ${valuesStr} RETURNING *`,
+            (error, results) => {
+                if (error) throw error
+                console.log(results)
+            }
+        )
+
         return results.rows[0].id
     })
 
     
-    response.status(201).json(results.rows[0])
+    // response.status(201).json(results.rows[0])
     // create new recipe
 
 
