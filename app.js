@@ -51,6 +51,9 @@ app.post('/api/ingredients', db.createIngredient)
 // app.put('/api/recipes/:id', db.updateRecipe)
 // app.delete('/api/recipes/:id', db.deleteRecipe)
 
+// units
+app.get('/api/units', db.getUnits)
+
 app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe)
 
 app.get('/api/fullRecipe/:id', db.getFullRecipe)

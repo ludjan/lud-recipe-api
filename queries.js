@@ -279,6 +279,16 @@ const createFullRecipe = (request, response) => {
     })
 }
 
+const getUnits = (request, response) => {
+
+    console.log(`Getting all units`)
+
+    client.query(`SELECT * FROM recipe_app.unit`, (error, results) => {
+        if (error) throw error
+        return response.status(200).json(results.rows)
+    })
+}
+
 const updateFullRecipe = (request, response) => {
 
     // update recipe table by id
