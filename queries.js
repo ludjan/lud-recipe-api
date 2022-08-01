@@ -219,7 +219,7 @@ const createFullRecipe = (request, response) => {
 
     console.log(request.body)
 
-    const { recipe, ingredients, portions } = request.body
+    const { recipe, ingredients, steps } = request.body
 
     const newRecipe = {
         recipe: null,
