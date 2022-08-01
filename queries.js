@@ -229,14 +229,14 @@ const createFullRecipe = (request, response) => {
 
     const portionsInt = parseInt(recipe.portions)
 
-    console.log(`Trying to insert new entry with name ${recipe.name} and description ${recipe.description}`)
+    console.log(`Trying to insert a full recipe with name ${recipe.name}`)
   
     client.query(
         `INSERT INTO recipe_app.recipe (name, description, portions) VALUES ('${recipe.name}', '${recipe.description}', ${portionsInt}) RETURNING *`, 
         (error, results) => {
         if (error) throw error
         const id = results.rows[0].id
-        console.log(id)
+        // console.log(id)
 
         // format the recipeIngredientUnit values
         // (1,2,3,4)
@@ -251,7 +251,7 @@ const createFullRecipe = (request, response) => {
             }
         }
 
-        console.log(insertRelationValuesStr)
+        // console.log(insertRelationValuesStr)
 
         // next query
         client.query(
@@ -270,12 +270,12 @@ const createFullRecipe = (request, response) => {
                 }
             }
 
-            console.log(`${insertStepStr}`)
+            // console.log(`${insertStepStr}`)
         
             client.query(`INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES ${insertStepStr} RETURNING *`, (error, results) => {
                 if (error) throw error
-                console.log(results.rows[0])
-                response.status(201).json(results.rows[0])
+                // console.log(results.rows[0])
+                response.status(201)
             })
         })
     })
