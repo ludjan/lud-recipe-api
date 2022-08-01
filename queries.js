@@ -246,9 +246,7 @@ const createFullRecipe = (request, response) => {
         for (let i=0; i<ingredients.length; i++) {
             var element = ingredients[i]
             insertRelationValuesStr += `(${id}, ${element.ingredientId}, ${element.quantity}, (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'))`
-            if (i != ingredients.length-1) {
-                insertRelationValuesStr += `, `
-            }
+            if (i != ingredients.length-1) insertRelationValuesStr += `, `
         }
 
         // console.log(insertRelationValuesStr)
@@ -265,12 +263,10 @@ const createFullRecipe = (request, response) => {
             for (let i=0; i<steps.length; i++) {
                 var element = steps[i]
                 insertStepStr += `(${id}, ${i+1}, '${element.description}')`
-                if (i != steps.length-1) {
-                    insertStepStr += `, `
-                }
+                if (i != steps.length-1) insertStepStr += `, `
             }
 
-            // console.log(`${insertStepStr}`)
+            console.log(`${insertStepStr}`)
         
             client.query(`INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES ${insertStepStr} RETURNING *`, (error, results) => {
                 if (error) throw error
