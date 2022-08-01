@@ -256,7 +256,7 @@ const createFullRecipe = (request, response) => {
 
         // next query
         client.query(
-            `INSERT INTO recipe_app.recipeIngredientUnit (recipeId, ingredient_id, unit_id, quantity) VALUES ${valuesStr} RETURNING *`,
+            `INSERT INTO recipe_app.recipeIngredientUnit (recipe_id, ingredient_id, unit_id, quantity) VALUES ${valuesStr} RETURNING *`,
             (error, results) => {
                 if (error) throw error
                 console.log(results)
