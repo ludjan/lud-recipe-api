@@ -264,7 +264,7 @@ const createFullRecipe = (request, response) => {
 
             for (let i=0; i<steps.length; i++) {
                 var element = steps[i]
-                insertStepStr += `(${element.recipeId}, ${i+1}, '${element.description}')`
+                insertStepStr += `(${id}, ${i+1}, '${element.description}')`
                 if (i != ingredients.length-1) {
                     insertStepStr += `, `
                 }
