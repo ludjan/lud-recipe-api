@@ -251,7 +251,7 @@ const createFullRecipe = (request, response) => {
             }
         }
 
-        console.log(valuesStr)
+        console.log(insertRelationValuesStr)
 
         // next query
         client.query(
@@ -270,7 +270,7 @@ const createFullRecipe = (request, response) => {
                 }
             }
 
-            console.log(`Trying to insert new step for recipe with id ${recipeId}`)
+            console.log(`${insertStepStr}`)
         
             client.query(`INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES ${insertStepStr} RETURNING *`, (error, results) => {
                 if (error) throw error
