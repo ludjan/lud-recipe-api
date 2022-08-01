@@ -207,6 +207,8 @@ const getFullRecipe = (request, response) => {
         recipeResponse.ingredients = ingredientsResults.rows
         recipeResponse.steps = stepResults.rows
 
+        console.log(recipeResponse)
+
         // send the response 
         response.status(200).json(recipeResponse)
 
