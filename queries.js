@@ -233,7 +233,7 @@ const createFullRecipe = (request, response) => {
   
     client.query(`INSERT INTO recipe_app.recipe (name, description, portions) VALUES ('${recipe.name}', '${recipe.description}', ${portionsInt}) RETURNING *`, (error, results) => {
         if (error) throw error
-        console.log(`Rows: ${results.rows[0]}`)
+        console.log(`Rows: ${results.rows[0].id}`)
         return results.rows[0]
     })
     // .then((result) => {
