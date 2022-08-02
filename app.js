@@ -37,7 +37,7 @@ app.delete('/api/recipes/:id', db.deleteRecipe)
 
 app.get('/api/step', db.getStep)
 app.get('/api/steps', db.getSteps)
-// app.get('/api/steps/:id', db.getStepById)a
+// app.get('/api/steps/:id', db.getStepById)aa
 app.post('/api/steps', db.createStep)
 app.put('/api/steps/:id', db.updateStep)
 app.delete('/api/steps/:id', db.deleteStep)
