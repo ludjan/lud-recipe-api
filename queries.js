@@ -19,6 +19,7 @@ const getRecipes = (request, response) => {
     })
 }
 
+// recipe
 const getRecipeById = (request, response) => {
     
     const id = parseInt(request.params.id)
