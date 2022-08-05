@@ -23,7 +23,8 @@ const getRecipes = (request, response) => {
 const getRecipeById = (request, response) => {
     
     const id = parseInt(request.params.id)
-    console.log(`Getting recipe with id ${id}`)
+    if (!(id > 0)) response.sendStatus(400)
+    console.log(`Getting recipe with id ${id}`) // some comment
   
     client.query(`SELECT * FROM recipe_app.recipe WHERE id = ${id}`, (error, results) => {
         if (error) throw error
@@ -48,7 +49,9 @@ const createRecipe = (request, response) => {
 const updateRecipe = (request, response) => {
     
     const id = parseInt(request.params.id)
+    
     const { name, description } = request.body
+    if (!(id > 0)) response.sendStatus(400)
     console.log(`Updating entry with id ${id} to name: ${name}, description: ${description}`)
 
     client.query(
@@ -63,6 +66,7 @@ const updateRecipe = (request, response) => {
 const deleteRecipe = (request, response) => {
     
     const id = parseInt(request.params.id)
+    if (!(id > 0)) response.sendStatus(400)
     console.log(`Deleting step with id ${stepId}`)
 
     client.query(
@@ -76,6 +80,7 @@ const deleteRecipe = (request, response) => {
 const getStep = (request, response) => {
 
     const stepId = parseInt(request.query.stepId)
+    if (!(stepId > 0)) response.sendStatus(400)
     console.log(`Getting step with id ${stepId}`)
 
     client.query(`SELECT * FROM recipe_app.step WHERE id = ${stepId}`, (error, results) => {
@@ -97,6 +102,7 @@ const getSteps = (request, response) => {
 const getRecipeSteps = (request, response) => {
    
     const recipeId = parseInt(request.query.recipeId)
+    if (!(recipeId > 0)) response.sendStatus(400)
     console.log(`Getting all steps for recipe with id ${recipeId}`)
     
     client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`, (error, results) => {
@@ -172,6 +178,7 @@ const createIngredient = (request, response) => {
 const getIngredientsForRecipe = (request, response) => {
     
     const recipeId = parseInt(request.query.recipeId)
+    if (!(recipeId > 0)) response.sendStatus(400)
     console.log(`Trying to get ingredients for recipe with id = ${recipeId}`)
     
     client.query(`SELECT * FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`, (error, results) => {

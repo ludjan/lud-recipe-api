@@ -56,7 +56,7 @@ app.get('/api/units', db.getUnits)
 
 app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe)
 
-// full recipe moreea
+// full recipe more
 app.get('/api/fullRecipe/:id', db.getFullRecipe)
 app.get('/api/updateFullRecipe/:id', db.updateFullRecipe)
 app.post('/api/fullRecipe', db.createFullRecipe)
