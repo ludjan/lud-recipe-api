@@ -283,7 +283,7 @@ const createFullRecipe = (request, response) => {
             client.query(`INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES ${insertStepStr} RETURNING *`, (error, results) => {
                 if (error) throw error
                 // console.log(results.rows[0])
-                response.sendStatus(201)
+                response.status(201).json(id);
             })
         })
     })
@@ -301,7 +301,37 @@ const getUnits = (request, response) => {
 
 const updateFullRecipe = (request, response) => {
 
+    console.log(`Trying to update recipe with id ${request.params.id}`);
+
+    const updateRecipeQuery = `
+        UPDATE 
+            recipe_app.recipe
+        SET 
+            name = ${request.body.recipe.name},
+            description = ${request.body.recipe.description}
+        WHERE 
+            id = ${request.params.id}
+        RETURNING *`;
+
     // update recipe table by id
+    Promise.all(
+        [   
+            client.query(updateRecipeQuery)
+        ])
+    .then(([updateRecipeResult]) => {
+        // catch if id does not exist
+        if (updateRecipeResult.rows[0] == null) throw error
+
+        console.log(updateRecipeResult);
+
+        // send the response 
+        response.status(200).json(updateRecipeResult);
+    })
+    .catch((error) => {
+        console.log(error);
+        response.sendStatus(400);
+    })
+
 
     // update recipeIngredientUnit table
         // remove all ingredients for this recipe
@@ -311,7 +341,7 @@ const updateFullRecipe = (request, response) => {
         // remove all steps for this recipe
         // insert list of new steps
 
-    response.sendStatus(400)
+    // response.sendStatus(400)
 
 }
 

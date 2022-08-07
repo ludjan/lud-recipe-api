@@ -58,7 +58,7 @@ app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe)
 
 // full recipe more
 app.get('/api/fullRecipe/:id', db.getFullRecipe)
-app.get('/api/updateFullRecipe/:id', db.updateFullRecipe)
+app.put('/api/fullRecipe/:id', db.updateFullRecipe)
 app.post('/api/fullRecipe', db.createFullRecipe)
 
 server.listen(port, function() {
