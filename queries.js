@@ -339,7 +339,7 @@ const updateFullRecipe = (request, response) => {
 
         const createNewStepsQuery = `
             INSERT INTO recipe_app.step (recipe_id, step_number, description) 
-            VALUES ${getStepQueryFormat(response.body.steps, recipeId)}`;
+            VALUES ${getStepQueryFormat(request.body.steps, recipeId)}`;
         console.log(createNewStepsQuery);
 
         console.log(updateRecipeResult);
