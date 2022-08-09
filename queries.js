@@ -325,7 +325,7 @@ const updateFullRecipe = (request, response) => {
 
     const deleteOldRecipeIngredientUnitsQuery = `
         DELETE FROM recipe_app.recipeIngredientUnit
-        WHERE recipeId = ${recipeId}`
+        WHERE recipeId = ${recipeId};`
     const createNewRecipeIngredientUnitsQuery = ``
     const deleteOldStepsQuery = ``
     const createNewStepsQuery = ``
