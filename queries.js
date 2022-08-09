@@ -322,14 +322,10 @@ const updateFullRecipe = (request, response) => {
         DELETE FROM recipe_app.recipeIngredientUnit
         WHERE recipe_id = ${recipeId}`;
 
-    // const getRecipeIngredientUnitQueryFormat()
-    // const createNewRecipeIngredientUnitsQuery = `
-    //     INSERT `
     const deleteOldStepsQuery = `
         DELETE FROM recipe_app.step
         WHERE recipe_id = ${recipeId}`;
-    const createNewStepsQuery = ``
-
+    
     // update recipe table by id
     Promise.all(
         [   
@@ -340,6 +336,11 @@ const updateFullRecipe = (request, response) => {
     .then(([updateRecipeResult, deleteRecipeIngredientUnitResult, deleteOldStepsResult]) => {
         // catch if id does not exist
         if (updateRecipeResult.rows[0] == null) throw error
+
+        const createNewStepsQuery = `
+            INSERT INTO recipe_app.step (recipe_id, step_number, description) 
+            VALUES ${getStepQueryFormat(response.body.steps, recipeId)}`;
+        console.log(createNewStepsQuery);
 
         console.log(updateRecipeResult);
 
@@ -360,6 +361,15 @@ const updateFullRecipe = (request, response) => {
         // remove all steps for this recipe
         // insert list of new steps
 
+}
+
+function getStepQueryFormat(stepArray, recipeId) {
+    var formattedValues = '';
+    for (let i=0; i<stepArray.length; i++) {
+        formattedValues += `(${recipeId}, ${stepArray[i].step_number}, ${stepArray[i].description})`;
+        if (i != stepArray.length-1) formattedValues += ', ';
+    }
+    return formattedValues;
 }
 
 module.exports = {
