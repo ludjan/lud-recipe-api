@@ -387,7 +387,7 @@ function getRecipeIngredientUnitFormat(ingredientArray, recipeId) {
                             (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'),
                             ${element.quantity}
                             )`;
-        if (i != stepArray.length-1) formattedValues += ', ';
+        if (i != ingredientArray.length-1) formattedValues += ', ';
     }
     return formattedValues;
 }
