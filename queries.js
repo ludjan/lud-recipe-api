@@ -337,7 +337,6 @@ const updateFullRecipe = (request, response) => {
         // catch if id does not exist
         
         if (updateRecipeResult.rows[0] == null) throw error
-        
 
         const createNewStepsQuery = `
             INSERT INTO recipe_app.step (recipe_id, step_number, description) 
@@ -390,12 +389,7 @@ function getRecipeIngredientUnitFormat(ingredientArray, recipeId) {
     var formattedValues = '';
     for (let i=0; i<ingredientArray.length; i++) {
         const element = ingredientArray[i];
-        formattedValues += `(
-                            ${recipeId}, 
-                            (SELECT id FROM recipe_app.ingredient WHERE name = '${element.name}'), 
-                            (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'),
-                            ${element.quantity}
-                            )`;
+        formattedValues += `(${recipeId}, (SELECT id FROM recipe_app.ingredient WHERE name = '${element.name}'), (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'), ${element.quantity})`;
         if (i != ingredientArray.length-1) formattedValues += ', ';
     }
     return formattedValues;
