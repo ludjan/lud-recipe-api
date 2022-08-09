@@ -303,6 +303,7 @@ const updateFullRecipe = (request, response) => {
 
     console.log(`Trying to update recipe with id ${request.params.id}`);
     const idAsInt = parseInt(request.params.id);
+    const portionsAsInt = parseInt(request.body.recipe.portions)
 
 
     const updateRecipeQuery = `
@@ -311,6 +312,7 @@ const updateFullRecipe = (request, response) => {
         SET 
             name = '${request.body.recipe.name}',
             description = '${request.body.recipe.description}'
+            portions = ${portionsAsInt}
         WHERE 
             id = ${idAsInt}
         RETURNING *`;
