@@ -353,9 +353,8 @@ const updateFullRecipe = (request, response) => {
             client.query(createNewRecipeIngredientUnitsQuery),
             client.query(createNewStepsQuery)
         ]).then((queryResponse) => {
-            response.sendStatus(200).json(queryResponse);
-        }) 
-        .catch((error) => {
+            response.status(200).json(queryResponse);
+        }).catch((error) => {
             console.log(error)
             response.status(400).json(error);
         })
