@@ -392,7 +392,7 @@ function getRecipeIngredientUnitFormat(ingredientArray, recipeId) {
         const element = ingredientArray[i];
         formattedValues += `(
                             ${recipeId}, 
-                            (SELECT id FROM recipe_app.ingredient WHERE name = '${element.ingredient}'), 
+                            (SELECT id FROM recipe_app.ingredient WHERE name = '${element.name}'), 
                             (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'),
                             ${element.quantity}
                             )`;
