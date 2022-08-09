@@ -389,7 +389,8 @@ function getRecipeIngredientUnitFormat(ingredientArray, recipeId) {
     var formattedValues = '';
     for (let i=0; i<ingredientArray.length; i++) {
         const element = ingredientArray[i];
-        formattedValues += `(${recipeId}, (SELECT id FROM recipe_app.ingredient WHERE name = '${element.name}'), (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'), ${element.quantity})`;
+        // formattedValues += `(${recipeId}, (SELECT id FROM recipe_app.ingredient WHERE name = '${element.name}'), (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'), ${element.quantity})`;
+        formattedValues += `(${recipeId}, ${element.ingredientId}, (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'), ${element.quantity})`;
         if (i != ingredientArray.length-1) formattedValues += ', ';
     }
     return formattedValues;
