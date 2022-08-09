@@ -302,19 +302,25 @@ const getUnits = (request, response) => {
 const updateFullRecipe = (request, response) => {
 
     console.log(`Trying to update recipe with id ${request.params.id}`);
-    const idAsInt = parseInt(request.params.id);
-    const portionsAsInt = parseInt(request.body.recipe.portions)
+    const recipeId = parseInt(request.params.id);
+    const recipeName = request.body.recipe.name;
+    const recipeDescription = request.body.recipe.description;
+    const portions = parseInt(request.body.recipe.portions)
 
+    console.log(`id ${recipeId}`)
+    console.log(`name ${recipeName}`)
+    console.log(`description ${recipeDescription}`)
+    console.log(`portions ${portions}`)
 
     const updateRecipeQuery = `
         UPDATE 
             recipe_app.recipe
         SET 
-            name = '${request.body.recipe.name}',
-            description = '${request.body.recipe.description}'
-            portions = ${portionsAsInt}
+            name = '${recipeName}',
+            description = '${recipeDescription}',
+            portions = ${portions}
         WHERE 
-            id = ${idAsInt}
+            id = ${recipeId}
         RETURNING *`;
 
     // update recipe table by id
