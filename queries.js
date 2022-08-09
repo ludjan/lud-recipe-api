@@ -350,10 +350,10 @@ const updateFullRecipe = (request, response) => {
         console.log(createNewRecipeIngredientUnitsQuery);
 
         Promise.all([
-            client.query(createNewRecipeIngredientUnitsQuery),
+            // client.query(createNewRecipeIngredientUnitsQuery),
             client.query(createNewStepsQuery)
-        ]).then(([createRecipeIngredientUnitsResult, createStepsResult]) => {
-            response.status(200)
+        ]).then(([createRecipeIngredientUnitsResult]) => {
+            response.sendStatus(200)
         }) 
         .catch((error) => {
             console.log(error)
