@@ -353,7 +353,7 @@ const updateFullRecipe = (request, response) => {
             client.query(createNewRecipeIngredientUnitsQuery),
             client.query(createNewStepsQuery)
         ]).then((response) => {
-            response.sendStatus(200)
+            response.status(200)
         }) 
         .catch((error) => {
             console.log(error)
