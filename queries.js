@@ -302,15 +302,17 @@ const getUnits = (request, response) => {
 const updateFullRecipe = (request, response) => {
 
     console.log(`Trying to update recipe with id ${request.params.id}`);
+    const idAsInt = parseInt(request.params.id);
+
 
     const updateRecipeQuery = `
         UPDATE 
             recipe_app.recipe
         SET 
-            name = ${request.body.recipe.name},
-            description = ${request.body.recipe.description}
+            name = '${request.body.recipe.name}',
+            description = '${request.body.recipe.description}'
         WHERE 
-            id = ${request.params.id}
+            id = ${idAsInt}
         RETURNING *`;
 
     // update recipe table by id
@@ -340,8 +342,6 @@ const updateFullRecipe = (request, response) => {
     // update steps table
         // remove all steps for this recipe
         // insert list of new steps
-
-    // response.sendStatus(400)
 
 }
 
