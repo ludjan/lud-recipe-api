@@ -191,7 +191,10 @@ const getFullRecipe = (request, response) => {
 
     // parse and log
     const recipeId = parseInt(request.params.id)
-    if (!(recipeId > 0)) response.sendStatus(400)
+    if (!(recipeId > 0)) {
+        console.log(`RecipeId ${recipeId} was not valid`);
+        response.sendStatus(400)
+    }
 
     console.log(`Trying to get full recipe with id = ${recipeId}`)
     
