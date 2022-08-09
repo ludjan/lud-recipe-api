@@ -342,7 +342,12 @@ const updateFullRecipe = (request, response) => {
             VALUES ${getStepQueryFormat(request.body.steps, recipeId)}`;
         console.log(createNewStepsQuery);
 
-        console.log(updateRecipeResult);
+        const createNewRecipeIngredientUnitsQuery = `
+            INSERT INTO recipe_app.recipeIngredientUnit (recipe_id, ingredient_id, unit_id, quantity)
+            VALUES ${getRecipeIngredientUnitFormat(request.body.ingredients, recipeId)}`;
+        console.log(createNewRecipeIngredientUnitsQuery);
+
+        // console.log(updateRecipeResult);
 
         // send the response 
         response.status(200).json(updateRecipeResult);
@@ -366,7 +371,22 @@ const updateFullRecipe = (request, response) => {
 function getStepQueryFormat(stepArray, recipeId) {
     var formattedValues = '';
     for (let i=0; i<stepArray.length; i++) {
-        formattedValues += `(${recipeId}, ${stepArray[i].step_number}, ${stepArray[i].description})`;
+        formattedValues += `(${recipeId}, ${stepArray[i].step_number}, '${stepArray[i].description}')`;
+        if (i != stepArray.length-1) formattedValues += ', ';
+    }
+    return formattedValues;
+}
+
+function getRecipeIngredientUnitFormat(ingredientArray, recipeId) {
+    var formattedValues = '';
+    for (let i=0; i<ingredientArray.length; i++) {
+        const element = ingredientArray[i];
+        formattedValues += `(
+                            ${recipeId}, 
+                            (SELECT id FROM recipe_app.ingredient WHERE name = '${element.ingredient}'), 
+                            (SELECT id FROM recipe_app.unit WHERE name = '${element.unit}'),
+                            ${element.quantity}
+                            )`;
         if (i != stepArray.length-1) formattedValues += ', ';
     }
     return formattedValues;
