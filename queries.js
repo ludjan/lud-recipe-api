@@ -379,7 +379,7 @@ const updateFullRecipe = (request, response) => {
 function getStepQueryFormat(stepArray, recipeId) {
     var formattedValues = '';
     for (let i=0; i<stepArray.length; i++) {
-        formattedValues += `(${recipeId}, ${stepArray[i].step_number}, '${stepArray[i].description}')`;
+        formattedValues += `(${recipeId}, ${i+1}, '${stepArray[i].description}')`;
         if (i != stepArray.length-1) formattedValues += ', ';
     }
     return formattedValues;
