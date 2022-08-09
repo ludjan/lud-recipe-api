@@ -323,12 +323,20 @@ const updateFullRecipe = (request, response) => {
             id = ${recipeId}
         RETURNING *`;
 
+    const deleteOldRecipeIngredientUnitsQuery = `
+        DELETE FROM recipe_app.recipeIngredientUnit
+        WHERE recipeId = ${recipeId}`
+    const createNewRecipeIngredientUnitsQuery = ``
+    const deleteOldStepsQuery = ``
+    const createNewStepsQuery = ``
+
     // update recipe table by id
     Promise.all(
         [   
-            client.query(updateRecipeQuery)
+            client.query(updateRecipeQuery),
+            client.query(deleteOldRecipeIngredientUnitsQuery)
         ])
-    .then(([updateRecipeResult]) => {
+    .then(([updateRecipeResult, deleteRecipeIngredientUnitResult]) => {
         // catch if id does not exist
         if (updateRecipeResult.rows[0] == null) throw error
 
