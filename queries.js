@@ -335,26 +335,35 @@ const updateFullRecipe = (request, response) => {
         ])
     .then(([updateRecipeResult, deleteRecipeIngredientUnitResult, deleteOldStepsResult]) => {
         // catch if id does not exist
+        
         if (updateRecipeResult.rows[0] == null) throw error
+        
 
         const createNewStepsQuery = `
             INSERT INTO recipe_app.step (recipe_id, step_number, description) 
             VALUES ${getStepQueryFormat(request.body.steps, recipeId)}`;
-        console.log(createNewStepsQuery);
 
         const createNewRecipeIngredientUnitsQuery = `
             INSERT INTO recipe_app.recipeIngredientUnit (recipe_id, ingredient_id, unit_id, quantity)
             VALUES ${getRecipeIngredientUnitFormat(request.body.ingredients, recipeId)}`;
+            
+        console.log(createNewStepsQuery);
         console.log(createNewRecipeIngredientUnitsQuery);
 
-        // console.log(updateRecipeResult);
-
-        // send the response 
-        response.status(200).json(updateRecipeResult);
+        Promise.all([
+            client.query(createNewRecipeIngredientsQuery),
+            client.query(createNewStepsQuery)
+        ]).then(([createRecipeIngredientUnitsResult, createRecipeIngredientUnitsResult]) => {
+            response.status(200)
+        }) 
+        .catch((error) => {
+            console.log(error)
+            response.status(400).json(error);
+        })
     })
     .catch((error) => {
         console.log(error);
-        response.sendStatus(400);
+        response.status(400).json(error);
     })
 
 
