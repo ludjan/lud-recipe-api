@@ -313,33 +313,31 @@ const updateFullRecipe = (request, response) => {
     console.log(`portions ${portions}`)
 
     const updateRecipeQuery = `
-        UPDATE 
-            recipe_app.recipe
-        SET 
-            name = '${recipeName}',
-            description = '${recipeDescription}',
-            portions = ${portions}
-        WHERE 
-            id = ${recipeId}
+        UPDATE recipe_app.recipe
+        SET  name = '${recipeName}', description = '${recipeDescription}', portions = ${portions}
+        WHERE id = ${recipeId}
         RETURNING *`;
 
     const deleteOldRecipeIngredientUnitsQuery = `
         DELETE FROM recipe_app.recipeIngredientUnit
         WHERE recipe_id = ${recipeId}`;
 
-    // getRecipeIngredientUnitQueryFormat()
+    // const getRecipeIngredientUnitQueryFormat()
     // const createNewRecipeIngredientUnitsQuery = `
     //     INSERT `
-    const deleteOldStepsQuery = ``
+    const deleteOldStepsQuery = `
+        DELETE FROM recipe_app.step
+        WHERE recipe_id = ${recipeId}`;
     const createNewStepsQuery = ``
 
     // update recipe table by id
     Promise.all(
         [   
             client.query(updateRecipeQuery),
-            client.query(deleteOldRecipeIngredientUnitsQuery)
+            client.query(deleteOldRecipeIngredientUnitsQuery),
+            client.query(deleteOldStepsQuery)
         ])
-    .then(([updateRecipeResult, deleteRecipeIngredientUnitResult]) => {
+    .then(([updateRecipeResult, deleteRecipeIngredientUnitResult, deleteOldStepsResult]) => {
         // catch if id does not exist
         if (updateRecipeResult.rows[0] == null) throw error
 
