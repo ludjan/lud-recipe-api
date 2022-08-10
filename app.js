@@ -9,7 +9,7 @@ const db = require('./queries')
 var app = express() // use the express framework to handle dynamic responses to different pages
 app.use(express.json()) // make sure express parses bodies with json
 app.use(cors()) // make sure we can access the api from the outside
-
+// hei
 var http = require('http')
 const { hostname } = require('os')
 const { dirname } = require('path')
