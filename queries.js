@@ -226,7 +226,7 @@ const getFullRecipe = (request, response) => {
         response.status(200).json(recipeResponse)
 
       }, function(error) {
-        throw error;
+        response.status(400).json(error);
       });  
 }
 
