@@ -221,7 +221,7 @@ const getFullRecipe = (request, response) => {
         recipeResponse.steps = stepResults.rows
 
         console.log(recipeResponse)
-
+        // hei
         // send the response 
         response.status(200).json(recipeResponse)
 
