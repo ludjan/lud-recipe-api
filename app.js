@@ -1,60 +1,62 @@
 var port = process.env.PORT || 5000
 
-const Joi = require('joi') // class for validation
-var express = require('express')
-const cors = require('cors')
+// dependencies
+const Joi = require('joi'); // class for validation
+var express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+var http = require('http');
+const { hostname } = require('os');
+const { dirname } = require('path');
 
-const db = require('./queries')
+// source files
+const db = require('./source/queries');
+const { checkJwt } = require('./source/jwks-check')
 
+// use middleware
 var app = express() // use the express framework to handle dynamic responses to different pages
-app.use(express.json()) // make sure express parses bodies with json
-app.use(cors()) // make sure we can access the api from the outside
-// hei
-var http = require('http')
-const { hostname } = require('os')
-const { dirname } = require('path')
+app.use(helmet()); // add Helmet to enhance API security
+app.use(express.json()) // let express parses request bodies with json
+app.use(cors()) // make sure we can access the API from the outside
+app.use(morgan('combined')); // let morgan log HTTP requests to terminal
+
 var server = http.Server(app)
 
-// const recipeList = [
-//   { id: 1, name: "Mat", taste: "digg", link: "recipes/1" },
-//   { id: 2, name: "Drikk", taste: "usch", link: "recipes/2" },
-//   { id: 3, name: "Hulda", taste: "nja", link: "recipes/3" }
-// ]
-
+// list harmless requests
 app.get('/', (req, res) => {
   console.log("Api homepage was called")
   res.status(200).send("Api is running")
 })
 
+// removing this gives console error
 app.get('favicon.ico', (req, res) => {
   res.status(200).send()
 })
+
 app.get('/api/recipes', db.getRecipes)
-app.get('/api/recipes/:id', db.getRecipeById)
-app.post('/api/recipes', db.createRecipe)
-app.put('/api/recipes/:id', db.updateRecipe)
-app.delete('/api/recipes/:id', db.deleteRecipe)
+// app.get('/api/recipes/:id', db.getRecipeById)
 
 app.get('/api/step', db.getStep)
 app.get('/api/steps', db.getSteps)
-// app.get('/api/steps/:id', db.getStepById)aa
-app.post('/api/steps', db.createStep)
-app.put('/api/steps/:id', db.updateStep)
-app.delete('/api/steps/:id', db.deleteStep)
-// app.put('/api/reorder-steps', db.reorderSteps)
-app.post('/api/steps-insert', db.createStepInsert)
 app.get('/api/getRecipeSteps', db.getRecipeSteps)
 
 app.get('/api/ingredients', db.getIngredients)
-// app.get('/api/recipes/:id', db.getRecipeById)
+app.get('/api/units', db.getUnits); // get all Units
+app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe) // get ingredients for specific recipe
+
+// all requests after this will be intercepted and checked before handled
+app.use(checkJwt);
+
+
+app.post('/api/recipes', db.createRecipe)
+app.put('/api/recipes/:id', db.updateRecipe)
+app.delete('/api/recipes/:id', db.deleteRecipe)
+app.post('/api/steps', db.createStep)
+app.put('/api/steps/:id', db.updateStep)
+app.delete('/api/steps/:id', db.deleteStep)
+app.post('/api/steps-insert', db.createStepInsert)
 app.post('/api/ingredients', db.createIngredient)
-// app.put('/api/recipes/:id', db.updateRecipe)
-// app.delete('/api/recipes/:id', db.deleteRecipe)
-
-// units
-app.get('/api/units', db.getUnits)
-
-app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe)
 
 // full recipe more
 app.get('/api/fullRecipe/:id', db.getFullRecipe)
