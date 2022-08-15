@@ -10,7 +10,7 @@ const checkJwt = jwt({
     }),
   
     // Validate the audience and the issuer.
-    audience: 'https://https://lud-recipe-api.herokuapp.com',
+    audience: 'https://lud-recipe-api.herokuapp.com',
     issuer: `https://dev-z293vi6n.us.auth0.com/`,
     algorithms: ['RS256']
 });

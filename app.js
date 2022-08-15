@@ -48,7 +48,6 @@ app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe) // get ingredien
 // all requests after this will be intercepted and checked before handled
 app.use(checkJwt);
 
-
 app.post('/api/recipes', db.createRecipe)
 app.put('/api/recipes/:id', db.updateRecipe)
 app.delete('/api/recipes/:id', db.deleteRecipe)
