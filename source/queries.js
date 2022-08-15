@@ -49,19 +49,21 @@ const createRecipe = (request, response) => {
   
 const updateRecipe = (request, response) => {
     
-    const id = parseInt(request.params.id)
-    
-    const { name, description } = request.body
-    if (!(id > 0)) response.sendStatus(400)
-    console.log(`Updating entry with id ${id} to name: ${name}, description: ${description}`)
+    response.status(418).send('Not available, use .../api/fullRecipe/');
 
-    client.query(
-      `UPDATE recipe_app.recipe SET name = '${name}', description = '${description}' WHERE id = ${id} RETURNING *`,
-      (error, results) => {
-        if (error) throw error
-        console.log(`Updated record ${results.rows[0]}`)
-        response.status(200).json(results.rows[0])
-    })
+    // const id = parseInt(request.params.id)
+    
+    // const { name, description } = request.body
+    // if (!(id > 0)) response.sendStatus(400)
+    // console.log(`Updating entry with id ${id} to name: ${name}, description: ${description}`)
+
+    // client.query(
+    //   `UPDATE recipe_app.recipe SET name = '${name}', description = '${description}' WHERE id = ${id} RETURNING *`,
+    //   (error, results) => {
+    //     if (error) throw error
+    //     console.log(`Updated record ${results.rows[0]}`)
+    //     response.status(200).json(results.rows[0])
+    // })
 }
   
 const deleteRecipe = (request, response) => {
@@ -92,65 +94,77 @@ const getStep = (request, response) => {
 
 const getSteps = (request, response) => {
 
-    console.log(`Getting all steps`)
+    response.status(418).send('Not available, use .../api/fullRecipe/');
+    
+    // console.log(`Getting all steps`)
 
-    client.query(`SELECT * FROM recipe_app.step`, (error, results) => {
-        if (error) throw error
-        return response.status(200).json(results.rows)
-    })
+    // client.query(`SELECT * FROM recipe_app.step`, (error, results) => {
+    //     if (error) throw error
+    //     return response.status(200).json(results.rows)
+    // })
 }
 
 const getRecipeSteps = (request, response) => {
    
-    const recipeId = parseInt(request.query.recipeId)
-    if (!(recipeId > 0)) response.sendStatus(400)
-    console.log(`Getting all steps for recipe with id ${recipeId}`)
+    response.status(418).send('Not available, use .../api/fullRecipe/');
+
+    // const recipeId = parseInt(request.query.recipeId)
+    // if (!(recipeId > 0)) response.sendStatus(400)
+    // console.log(`Getting all steps for recipe with id ${recipeId}`)
     
-    client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`, (error, results) => {
-        if (error) throw error
-        return response.status(200).json(results.rows)
-    })
+    // client.query(`SELECT * FROM recipe_app.step WHERE recipe_id = ${recipeId} ORDER BY step_number`, (error, results) => {
+    //     if (error) throw error
+    //     return response.status(200).json(results.rows)
+    // })
 
 }
 
 const createStep = (request, response) => {
 
-    const { recipeId, step_number, description } = request.body
-    console.log(`Trying to insert new step for recipe with id ${recipeId}`)
+    response.status(418).send('Not available, use .../api/fullRecipe/');
+
+    // const { recipeId, step_number, description } = request.body
+    // console.log(`Trying to insert new step for recipe with id ${recipeId}`)
   
-    client.query(`INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES ('${recipeId}', '${step_number}','${description}') RETURNING *`, (error, results) => {
-        if (error) throw error
-        console.log(results.rows[0])
-        response.status(201).json(results.rows[0])
-    })
+    // client.query(`INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES ('${recipeId}', '${step_number}','${description}') RETURNING *`, (error, results) => {
+    //     if (error) throw error
+    //     console.log(results.rows[0])
+    //     response.status(201).json(results.rows[0])
+    // })
 }
 
-const updateStep = (request, response) => { }
+const updateStep = (request, response) => { 
+    response.status(418).send('Not available, use .../api/fullRecipe/');
+}
 
-const deleteStep = (request, response) => { }
+const deleteStep = (request, response) => { 
+    response.status(418).send('Not available, use .../api/fullRecipe/');
+}
 
 const createStepInsert = (request, response) => {
+
+    response.status(418).send('Not available, use .../api/fullRecipe/');
     
-    const { recipeId, step_number, description } = request.body
-    console.log(`Trying to insert ${description} as step ${step_number} for recipeId ${recipeId}`)
+    
+    // const { recipeId, step_number, description } = request.body
+    // console.log(`Trying to insert ${description} as step ${step_number} for recipeId ${recipeId}`)
 
-    Promise.all(
-        [   client.query(`
-                UPDATE recipe_app.recipe
-                SET step_number = step_number + 1 
-                WHERE id = ${recipeId} AND step_number >= ${step_number}`
-            ),
-            client.query(`
-                INSERT INTO recipe_app.step (recipe_id, step_number, description) 
-                VALUES ('${recipeId}', '${step_number}','${description}') RETURNING *`
-            )
-        ]).then(function([updateResults, insertResults]) {
+    // Promise.all(
+    //     [   client.query(`
+    //             UPDATE recipe_app.recipe
+    //             SET step_number = step_number + 1 
+    //             WHERE id = ${recipeId} AND step_number >= ${step_number}`
+    //         ),
+    //         client.query(`
+    //             INSERT INTO recipe_app.step (recipe_id, step_number, description) 
+    //             VALUES ('${recipeId}', '${step_number}','${description}') RETURNING *`
+    //         )
+    //     ]).then(function([updateResults, insertResults]) {
             
-            response.status(200).json(insertResults.rows[0]);
-          }, function(error) {
-            throw error;
-          });  
-
+    //         response.status(200).json(insertResults.rows[0]);
+    //       }, function(error) {
+    //         throw error;
+    //       });  
 }
 
 const getIngredients = (request, response) => {
@@ -178,14 +192,16 @@ const createIngredient = (request, response) => {
 
 const getIngredientsForRecipe = (request, response) => {
     
-    const recipeId = parseInt(request.query.recipeId)
-    if (!(recipeId > 0)) response.sendStatus(400)
-    console.log(`Trying to get ingredients for recipe with id = ${recipeId}`)
+    response.status(418).send('Not available, use .../api/fullRecipe/');
     
-    client.query(`SELECT * FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`, (error, results) => {
-        if (error) throw error
-        response.status(200).json(results.rows)
-    })
+    // const recipeId = parseInt(request.query.recipeId)
+    // if (!(recipeId > 0)) response.sendStatus(400)
+    // console.log(`Trying to get ingredients for recipe with id = ${recipeId}`)
+    
+    // client.query(`SELECT * FROM recipeIngredientSimple WHERE recipe_id = ${recipeId}`, (error, results) => {
+    //     if (error) throw error
+    //     response.status(200).json(results.rows)
+    // })
 }
 
 const getFullRecipe = (request, response) => {
@@ -367,16 +383,6 @@ const updateFullRecipe = (request, response) => {
         console.log(error);
         response.status(400).json(error);
     })
-
-
-    // update recipeIngredientUnit table
-        // remove all ingredients for this recipe
-        // insert lsit of new ingredients
-
-    // update steps table
-        // remove all steps for this recipe
-        // insert list of new steps
-
 }
 
 function getStepQueryFormat(stepArray, recipeId) {

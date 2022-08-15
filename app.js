@@ -35,7 +35,7 @@ app.get('favicon.ico', (req, res) => {
 })
 
 app.get('/api/recipes', db.getRecipes)
-// app.get('/api/recipes/:id', db.getRecipeById)
+app.get('/api/recipes/:id', db.getRecipeById)
 
 app.get('/api/step', db.getStep)
 app.get('/api/steps', db.getSteps)
@@ -44,6 +44,8 @@ app.get('/api/getRecipeSteps', db.getRecipeSteps)
 app.get('/api/ingredients', db.getIngredients)
 app.get('/api/units', db.getUnits); // get all Units
 app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe) // get ingredients for specific recipe
+
+app.get('/api/fullRecipe/:id', db.getFullRecipe)
 
 // all requests after this will be intercepted and checked before handled
 app.use(checkJwt);
@@ -58,7 +60,6 @@ app.post('/api/steps-insert', db.createStepInsert)
 app.post('/api/ingredients', db.createIngredient)
 
 // full recipe more
-app.get('/api/fullRecipe/:id', db.getFullRecipe)
 app.put('/api/fullRecipe/:id', db.updateFullRecipe)
 app.post('/api/fullRecipe', db.createFullRecipe)
 
