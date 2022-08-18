@@ -67,17 +67,35 @@ const updateRecipe = (request, response) => {
 }
   
 const deleteRecipe = (request, response) => {
+    const recipeId = parseInt(request.params.id)
+    if (!(recipeId > 0)) response.sendStatus(400)
+    console.log(`Trying to delete recipe with id ${recipeId}`)
     
-    const id = parseInt(request.params.id)
-    if (!(id > 0)) response.sendStatus(400)
-    console.log(`Deleting recipe with id ${id}`)
+    const deleteRecipeQuery = `
+        DELETE FROM recipe_app.recipe
+        WHERE id = ${recipeId}
+        RETURNING *`;
 
-    client.query(
-        `DELETE FROM recipe_app.recipe WHERE id = ${id} RETURNING *`, (error, results) => {
-      if (error) throw error
-      console.log(`Deleted record: ${results.rows[0]}`)
-      response.status(200).json(results.rows[0])
-    })
+    const deleteRecipeIngredientUnitsQuery = `
+        DELETE FROM recipe_app.recipeIngredientUnit
+        WHERE recipe_id = ${recipeId}`;
+
+    const deleteStepsQuery = `
+        DELETE FROM recipe_app.step
+        WHERE recipe_id = ${recipeId}`;
+    
+    Promise.all(
+        [   
+            client.query(deleteRecipeQuery),
+            client.query(deleteRecipeIngredientUnitsQuery),
+            client.query(deleteStepsQuery)
+        ])
+    .then(([deleteRecipeResult, deleteRecipeIngredientUnitResult, deleteOldStepsResult]) => {
+        // catch if id does not exist
+        if (deleteRecipeResult.rows[0] == null) throw error
+        console.log(`Deleted record: ${results.rows[0]}`)
+        response.status(200).json(results.rows[0])
+    });
   }
 
 const getStep = (request, response) => {
