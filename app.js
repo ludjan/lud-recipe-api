@@ -34,6 +34,18 @@ app.get('favicon.ico', (req, res) => {
   res.status(200).send()
 })
 
+// module.exports = {
+//   getRecipes,
+//   getRecipeById,
+//   deleteRecipe,
+//   createIngredient,
+//   getIngredients,
+//   getUnits,
+//   getFullRecipe,
+//   updateFullRecipe,
+//   createFullRecipe
+// }
+
 app.get('/api/recipes', db.getRecipes)
 app.get('/api/recipes/:id', db.getRecipeById)
 
