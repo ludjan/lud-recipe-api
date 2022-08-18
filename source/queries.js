@@ -94,8 +94,11 @@ const deleteRecipe = (request, response) => {
 
         client.query(deleteRecipeQuery, (error, results) => {
             if (error) throw error;
-            console.log(`Deleted record: ${results.rows[0]}`)
-            response.status(200).json(results.rows[0])
+            if (results.rows == 0) {
+                response.sendStatus(404);
+            }
+            console.log(`Recipe with id = ${recipeId} was deleted`);
+            response.sendStatus(200);
         })
     })
   }
