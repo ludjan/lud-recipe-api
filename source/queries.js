@@ -89,8 +89,7 @@ const deleteRecipe = (request, response) => {
         ])
     .then(([deleteRecipeIngredientUnitResult, deleteStepsResult]) => {
 
-        console.log(`RecipeIngredientUnits deleted: ${deleteRecipeIngredientUnitResult.rows.length}`);
-        console.log(`Steps deleted: ${deleteStepsResult.rows.length}`);
+        console.log(`RecipeIngredientUnits and steps deleted`);
 
         client.query(deleteRecipeQuery, (error, results) => {
             if (error) throw error;
