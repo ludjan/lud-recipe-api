@@ -37,26 +37,26 @@ app.get('favicon.ico', (req, res) => {
 app.get('/api/recipes', db.getRecipes)
 app.get('/api/recipes/:id', db.getRecipeById)
 
-app.get('/api/step', db.getStep)
-app.get('/api/steps', db.getSteps)
-app.get('/api/getRecipeSteps', db.getRecipeSteps)
+// app.get('/api/step', db.getStep)
+// app.get('/api/steps', db.getSteps)
+// app.get('/api/getRecipeSteps', db.getRecipeSteps)
 
-app.get('/api/ingredients', db.getIngredients)
+app.get('/api/ingredients', db.getIngredients) // get all Ingredients
 app.get('/api/units', db.getUnits); // get all Units
-app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe) // get ingredients for specific recipe
+// app.get('/api/ingredientForRecipe', db.getIngredientsForRecipe) // get ingredients for specific recipe
 
 app.get('/api/fullRecipe/:id', db.getFullRecipe)
 
 // all requests after this will be intercepted and checked before handled
 app.use(checkJwt);
 
-app.post('/api/recipes', db.createRecipe)
-app.put('/api/recipes/:id', db.updateRecipe)
+// app.post('/api/recipes', db.createRecipe)
+// app.put('/api/recipes/:id', db.updateRecipe)
 app.delete('/api/recipes/:id', db.deleteRecipe)
-app.post('/api/steps', db.createStep)
-app.put('/api/steps/:id', db.updateStep)
-app.delete('/api/steps/:id', db.deleteStep)
-app.post('/api/steps-insert', db.createStepInsert)
+// app.post('/api/steps', db.createStep)
+// app.put('/api/steps/:id', db.updateStep)
+// app.delete('/api/steps/:id', db.deleteStep)
+// app.post('/api/steps-insert', db.createStepInsert)
 app.post('/api/ingredients', db.createIngredient)
 
 // full recipe more
