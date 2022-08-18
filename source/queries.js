@@ -70,7 +70,7 @@ const deleteRecipe = (request, response) => {
     
     const id = parseInt(request.params.id)
     if (!(id > 0)) response.sendStatus(400)
-    console.log(`Deleting step with id ${stepId}`)
+    console.log(`Deleting recipe with id ${id}`)
 
     client.query(
         `DELETE FROM recipe_app.recipe WHERE id = ${id} RETURNING *`, (error, results) => {
