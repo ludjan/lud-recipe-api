@@ -16,9 +16,9 @@ const { checkJwt } = require('./source/jwks-check')
 
 // use middleware
 var app = express() // use the express framework to handle dynamic responses to different pages
+app.use(cors()) // make sure we can access the API from the outside
 app.use(helmet()); // add Helmet to enhance API security
 app.use(express.json()) // let express parses request bodies with json
-app.use(cors()) // make sure we can access the API from the outside
 app.use(morgan('combined')); // let morgan log HTTP requests to terminal
 
 var server = http.Server(app)

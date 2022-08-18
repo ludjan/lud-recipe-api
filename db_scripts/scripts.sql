@@ -64,10 +64,10 @@ INSERT INTO recipe_app.ingredient (name) VALUES
 ('Rodlok'),
 ('Gul lok');
 
-INSERT INTO recipe_app.recipe (name, description) VALUES
-('Goda pannkakor', 'Supergoda pannkakor'),
-('Lyxig aggrora', 'Superlyxig aggrora'),
-('Loksallad', 'Usch, lok');
+INSERT INTO recipe_app.recipe (name, description, portions) VALUES
+('Goda pannkakor', 'Supergoda pannkakor', 2),
+('Lyxig aggrora', 'Superlyxig aggrora', 2),
+('Loksallad', 'Usch, lok', 2);
 
 INSERT INTO recipe_app.step (recipe_id, step_number, description) VALUES
 (1, 1, 'Hall i allt mjol och halva mjolken i en bunke og vispa till det inte ar klumpar kvar'),
