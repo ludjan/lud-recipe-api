@@ -67,18 +67,6 @@ const deleteRecipe = (request, response) => {
     })
   }
 
-// const getStep = (request, response) => {
-
-//     const stepId = parseInt(request.query.stepId)
-//     if (!(stepId > 0)) response.sendStatus(400)
-//     console.log(`Getting step with id ${stepId}`)
-
-//     client.query(`SELECT * FROM recipe_app.step WHERE id = ${stepId}`, (error, results) => {
-//         if (error) throw error
-//         return response.status(200).json(results.rows)
-//     })
-// }
-
 const getIngredients = (request, response) => {
     
     console.log('Getting all recipes')
@@ -110,7 +98,7 @@ const getFullRecipe = (request, response) => {
 
     console.log(`Trying to get full recipe with id = ${recipeId}`)
     
-    // return object
+    // the return object
     const recipeResponse = {
         recipe: null,
         ingredients: null,
