@@ -84,17 +84,20 @@ const deleteRecipe = (request, response) => {
     
     Promise.all(
         [
-            client.query(deleteRecipeQuery),
             client.query(deleteRecipeIngredientUnitsQuery),
             client.query(deleteStepsQuery)
         ])
-    .then(([deleteRecipeResult, deleteRecipeIngredientUnitResult, deleteStepsResult]) => {
-        // catch if id does not exist
-        if (deleteRecipeResult.rows[0] == null) throw error
+    .then(([deleteRecipeIngredientUnitResult, deleteStepsResult]) => {
 
-        console.log(`Deleted record: ${results.rows[0]}`)
-        response.status(200).json(results.rows[0])
-    });
+        console.log(`RecipeIngredientUnits deleted: ${deleteRecipeIngredientUnitResult.rows.length}`);
+        console.log(`Steps deleted: ${deleteStepsResult.rows.length}`);
+
+        client.query(deleteRecipeQuery, (error, results) => {
+            if (error) throw error;
+            console.log(`Deleted record: ${results.rows[0]}`)
+            response.status(200).json(results.rows[0])
+        })
+    })
   }
 
 const getStep = (request, response) => {
