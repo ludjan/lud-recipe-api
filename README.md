@@ -10,11 +10,11 @@ Authentication is done via Auth0
 *NOTE* a 'fullRecipe' is a recipe entity with 1 or more ingredients and 1 or more steps.
 
 - GET routes does not require authentication:
--- Get all recipes https://lud-recipe-app.herokuapp.com/api/recipes
--- Get a specific recipe https://lud-recipe-app.herokuapp.com/api/recipes/:id
--- Get all ingredients https://lud-recipe-app.herokuapp.com/api/ingredients
--- Get all units https://lud-recipe-app.herokuapp.com/api/units
--- Get full recipe (including its ingredients and steps) https://lud-recipe-app.herokuapp.com/api/fullRecipe/:id
+  - Get all recipes https://lud-recipe-app.herokuapp.com/api/recipes
+  - Get a specific recipe https://lud-recipe-app.herokuapp.com/api/recipes/:id
+  - Get all ingredients https://lud-recipe-app.herokuapp.com/api/ingredients
+  - Get all units https://lud-recipe-app.herokuapp.com/api/units
+  - Get full recipe (including its ingredients and steps) https://lud-recipe-app.herokuapp.com/api/fullRecipe/:id
 
 - POST routes requires authentication:
 -- Create a new ingredient https://lud-recipe-app.herokuapp.com/api/ingredients
