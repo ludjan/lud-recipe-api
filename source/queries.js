@@ -52,7 +52,7 @@ const deleteRecipe = (request, response) => {
             client.query(deleteRecipeIngredientUnitsQuery),
             client.query(deleteStepsQuery)
         ])
-    .then(([]) => {
+    .then(([deleteRecipeIngredientUnitsResult, deleteStepResult]) => {
 
         console.log(`RecipeIngredientUnits and steps deleted`);
 
