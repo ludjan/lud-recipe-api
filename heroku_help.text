@@ -1,1 +1,0 @@
-heroku git:remote -a yourApp // set default app for curr dir
