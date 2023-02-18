@@ -11,7 +11,7 @@ const { hostname } = require('os');
 const { dirname } = require('path');
 
 // source files
-// const db = require('./source/queries');
+const db = require('./source/queries');
 const { checkJwt } = require('./source/jwks-check')
 
 // use middleware
@@ -30,28 +30,28 @@ app.get('/', (req, res) => {
 })
 
 // removing this gives console error. Dunno why (?)
-// app.get('favicon.ico', (req, res) => {
-//   res.status(200).send()
-// })
+app.get('favicon.ico', (req, res) => {
+  res.status(200).send()
+})
 
-// app.get('/api/recipes', db.getRecipes)
-// app.get('/api/recipes/:id', db.getRecipeById)
+app.get('/api/recipes', db.getRecipes)
+app.get('/api/recipes/:id', db.getRecipeById)
 
-// app.get('/api/ingredients', db.getIngredients) 
-// app.get('/api/units', db.getUnits);
+app.get('/api/ingredients', db.getIngredients) 
+app.get('/api/units', db.getUnits);
 
-// app.get('/api/fullRecipe/:id', db.getFullRecipe)
+app.get('/api/fullRecipe/:id', db.getFullRecipe)
 
-// // all requests after this will be intercepted and checked before handled
-// app.use(checkJwt);
+// all requests after this will be intercepted and checked before handled
+app.use(checkJwt);
 
-// app.post('/api/ingredients', db.createIngredient)
-// // should have route for updating ingredient 
-// // should have route for deleting ingredient
+app.post('/api/ingredients', db.createIngredient)
+// should have route for updating ingredient 
+// should have route for deleting ingredient
 
-// app.put('/api/fullRecipe/:id', db.updateFullRecipe)
-// app.post('/api/fullRecipe', db.createFullRecipe)
-// app.delete('/api/recipes/:id', db.deleteRecipe)
+app.put('/api/fullRecipe/:id', db.updateFullRecipe)
+app.post('/api/fullRecipe', db.createFullRecipe)
+app.delete('/api/recipes/:id', db.deleteRecipe)
 
 server.listen(port, function() {
   console.log(`API running on ${hostname} port ${port}! Woho!`)
