@@ -59,11 +59,11 @@ server.listen(port, function() {
   return true
 })
 
-function validateRecipe(recipe) {
-  const schema = Joi.object({
-    name: Joi.string()
-        .min(3)
-        .required()
-  })
-  return schema.validate(recipe)
-}
+// function validateRecipe(recipe) {
+//   const schema = Joi.object({
+//     name: Joi.string()
+//         .min(3)
+//         .required()
+//   })
+//   return schema.validate(recipe)
+// }
