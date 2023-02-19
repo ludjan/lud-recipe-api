@@ -11,7 +11,7 @@ const { hostname } = require('os');
 const { dirname } = require('path');
 
 // source files
-const db = require('./source/queries');
+// const db = require('./source/queries');
 const { checkJwt } = require('./source/jwks-check')
 
 // use middleware
