@@ -29,29 +29,30 @@ app.get('/', (req, res) => {
   res.status(200).send("Api is running")
 })
 
-// removing this gives console error. Dunno why (?)
-app.get('favicon.ico', (req, res) => {
-  res.status(200).send()
-})
 
-app.get('/api/recipes', db.getRecipes)
-app.get('/api/recipes/:id', db.getRecipeById)
+// // removing this gives console error. Dunno why (?)
+// app.get('favicon.ico', (req, res) => {
+//   res.status(200).send()
+// })
 
-app.get('/api/ingredients', db.getIngredients) 
-app.get('/api/units', db.getUnits);
+// app.get('/api/recipes', db.getRecipes)
+// app.get('/api/recipes/:id', db.getRecipeById)
 
-app.get('/api/fullRecipe/:id', db.getFullRecipe)
+// app.get('/api/ingredients', db.getIngredients) 
+// app.get('/api/units', db.getUnits);
 
-// all requests after this will be intercepted and checked before handled
-app.use(checkJwt);
+// app.get('/api/fullRecipe/:id', db.getFullRecipe)
 
-app.post('/api/ingredients', db.createIngredient)
-// should have route for updating ingredient 
-// should have route for deleting ingredient
+// // all requests after this will be intercepted and checked before handled
+// app.use(checkJwt);
 
-app.put('/api/fullRecipe/:id', db.updateFullRecipe)
-app.post('/api/fullRecipe', db.createFullRecipe)
-app.delete('/api/recipes/:id', db.deleteRecipe)
+// app.post('/api/ingredients', db.createIngredient)
+// // should have route for updating ingredient 
+// // should have route for deleting ingredient
+
+// app.put('/api/fullRecipe/:id', db.updateFullRecipe)
+// app.post('/api/fullRecipe', db.createFullRecipe)
+// app.delete('/api/recipes/:id', db.deleteRecipe)
 
 server.listen(port, function() {
   console.log(`API running on ${hostname} port ${port}! Woho!`)
